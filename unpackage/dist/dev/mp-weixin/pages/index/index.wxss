@@ -1,0 +1,102 @@
+.fatherBox.data-v-57280228 {
+  position: relative;
+}
+.headBox.data-v-57280228 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+          justify-content: space-around;
+  height: 88rpx;
+  line-height: 88rpx;
+  background-color: #FFFFFF;
+}
+.headBox .leftBox.data-v-57280228 {
+  width: 10%;
+  height: 56rpx;
+  text-align: center;
+}
+.headBox .leftBox image.data-v-57280228 {
+  width: 56rpx;
+}
+.headBox .middleBox.data-v-57280228 {
+  width: 70%;
+  height: 56rpx;
+  font-size: 24rpx;
+  color: #90939C;
+  background-color: #EAEBF2;
+  border-radius: 34rpx;
+  line-height: 56rpx;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.headBox .middleBox image.data-v-57280228 {
+  margin-left: 24rpx;
+  margin-right: 15rpx;
+  width: 24rpx;
+}
+.headBox .rightBox.data-v-57280228 {
+  width: 10%;
+  text-align: center;
+  height: 56rpx;
+}
+.headBox .rightBox image.data-v-57280228 {
+  width: 56rpx;
+}
+.contentBox.data-v-57280228 {
+  margin-top: 100rpx;
+}
+.contentBox .itemBox.data-v-57280228 {
+  font-weight: 700;
+  padding: 20rpx 30rpx 40rpx 30rpx;
+  border-bottom: 1rpx solid grey;
+  font-size: 36rpx;
+}
+.contentBox .itemBox image.data-v-57280228 {
+  margin-top: 10rpx;
+  width: 100%;
+}
+.flexBox.data-v-57280228 {
+  margin-top: 40rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+          justify-content: space-around;
+  text-align: center;
+}
+.flexBox image.data-v-57280228 {
+  width: 300rpx;
+}
+.addZhengShu.data-v-57280228 {
+  width: 648rpx;
+  height: 98rpx;
+  background-color: #F6F6F9;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 98rpx;
+  margin: 30rpx auto;
+}
+.outLogin.data-v-57280228 {
+  margin: 300rpx auto;
+  width: 150rpx;
+  height: 56rpx;
+  border-radius: 28rpx;
+  background-color: #707070;
+  text-align: center;
+  color: white;
+  line-height: 56rpx;
+  font-size: 28rpx;
+}
+
