@@ -34,6 +34,7 @@
 	.moduleBox {
 		width: 90%;
 		height: 98rpx;
+		line-height: 98rpx;
 		margin: 10rpx auto;
 		background-color: #F6F6F9;
 		border-radius: 10rpx;

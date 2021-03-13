@@ -175,7 +175,11 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { userValue: '', passwordValue: '' };}, onShow: function onShow() {this.userValue = '';this.passwordValue = '';}, methods: { pushIndex: function pushIndex() {uni.navigateTo({ url: '../index/index' });}, zhanghao: function zhanghao(event) {this.userValue = event.detail.value;console.log(this.userValue);
+var _default = { data: function data() {return { userValue: '', passwordValue: '', typePW: 'password' };}, onShow: function onShow() {// this.userValue = '';
+    this.passwordValue = '';}, methods: { handelEye: function handelEye() {this.typePW = this.typePW === 'password' ? 'text' : 'password';}, pushIndex: function pushIndex() {uni.navigateTo({ url: '../index/index' });},
+    zhanghao: function zhanghao(event) {
+      this.userValue = event.detail.value;
+      console.log(this.userValue);
     },
     password: function password(event) {
       this.passwordValue = event.detail.value;
@@ -202,6 +206,11 @@ var _default = { data: function data() {return { userValue: '', passwordValue: '
 
               } });
 
+
+          } else {
+            uni.showToast({
+              title: '账号或密码不正确',
+              icon: 'none' });
 
           }
           console.log(res);

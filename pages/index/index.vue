@@ -8,7 +8,7 @@
 				</view>
 				<view class="middleBox">
 					<image src="../../static/image/search.png" mode="widthFix"></image>
-					<input type="text" value="输入你想要搜索的证书名">
+					<input type="text" placeholder="输入你想要搜索的证书名">
 				</view>
 				<view class="rightBox">
 					<image src="../../static/image/shaixuan.png" mode="widthFix"></image>
@@ -67,7 +67,7 @@
 						this.isLogin = true;
 						console.log(this.isLogin)
 					},
-					fail: (err)=> {
+					fail: (err) => {
 						this.isLogin = false
 					}
 				});
@@ -100,9 +100,9 @@
 				});
 			},
 			// 跳转到模块管理页面
-			pushModule(){
+			pushModule() {
 				uni.navigateTo({
-					url:'../module/module'
+					url: '../module/module'
 				})
 			}
 		}

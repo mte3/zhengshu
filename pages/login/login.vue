@@ -8,12 +8,12 @@
 		<view class="inputBox">
 			<view class="firstBox">
 				<image src="../../static/image/me.png" mode="widthFix"></image>
-				<input type="text" @input="zhanghao">
+				<input type="text"    @input="zhanghao">
 			</view>
 			<view class="secondBox">
 				<image src="../../static/image/suo.png" mode="widthFix"></image>
-				<input type="password" placeholder="请输入密码" placeholder-style="color:#D4D5D5;font-size:30rpx" @input="password">
-				<image src="../../static/image/eye.png" mode="widthFix" class="eye"></image>
+				<input :type="typePW" placeholder="请输入密码" placeholder-style="color:#D4D5D5;font-size:30rpx" @input="password">
+				<image @click="handelEye" src="../../static/image/eye.png" mode="widthFix" class="eye"></image>
 			</view>
 			<view class="loginBox" @click="loginButton">登录</view>
 		</view>
@@ -28,14 +28,18 @@
 		data() {
 			return {
 				userValue: '',
-				passwordValue: ''
+				passwordValue: '',
+				typePW: 'password'
 			}
 		},
 		onShow() {
-			this.userValue = '';
+			// this.userValue = '';
 			this.passwordValue = ''
 		},
 		methods: {
+			handelEye() {
+				this.typePW = this.typePW === 'password' ? 'text' : 'password'
+			},
 			pushIndex() {
 				uni.navigateTo({
 					url: '../index/index'
@@ -71,6 +75,11 @@
 								}
 							});
 
+						}else{
+							uni.showToast({
+								title: '账号或密码不正确',
+								icon:'none'
+							})
 						}
 						console.log(res)
 					}).catch(err => {
