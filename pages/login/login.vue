@@ -34,7 +34,7 @@
 		},
 		onShow() {
 			// this.userValue = '';
-			this.passwordValue = ''
+			// this.passwordValue = '';
 		},
 		methods: {
 			handelEye() {

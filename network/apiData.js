@@ -16,9 +16,40 @@ export function getLogin(userName, passWord) {
 		}
 	})
 }
-// 查询模块
+
+//模块管理
+
+//// 查询模块
 export function getModuleList() {
 	return request({
 		url: 'admin/findModule'
+	})
+}
+////添加模块
+export function addModule(name) {
+	return request({
+		url: 'admin / addModule ',
+		data:{
+			name
+		}
+	})
+}
+////删除模块
+export function deleteModule(id){
+	return request({
+		url:'admin/delModuleById/{id}',
+		data:{
+			id
+		}
+	})
+}
+//修改模块
+export function modifyModule(id,name){
+	return request({
+		url:'admin/updModuleById/{id}',
+		data:{
+			id,
+			name
+		}
 	})
 }

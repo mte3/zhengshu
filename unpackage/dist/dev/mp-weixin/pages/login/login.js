@@ -176,8 +176,8 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 var _default = { data: function data() {return { userValue: '', passwordValue: '', typePW: 'password' };}, onShow: function onShow() {// this.userValue = '';
-    this.passwordValue = '';}, methods: { handelEye: function handelEye() {this.typePW = this.typePW === 'password' ? 'text' : 'password';}, pushIndex: function pushIndex() {uni.navigateTo({ url: '../index/index' });},
-    zhanghao: function zhanghao(event) {
+    // this.passwordValue = '';
+  }, methods: { handelEye: function handelEye() {this.typePW = this.typePW === 'password' ? 'text' : 'password';}, pushIndex: function pushIndex() {uni.navigateTo({ url: '../index/index' });}, zhanghao: function zhanghao(event) {
       this.userValue = event.detail.value;
       console.log(this.userValue);
     },

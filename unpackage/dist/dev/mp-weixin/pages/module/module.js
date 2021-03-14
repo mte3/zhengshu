@@ -139,6 +139,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
@@ -147,11 +155,15 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { list: [] };},
-  onLoad: function onLoad() {
-    this.getModuleListFunc();
-  },
-  methods: {
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { isDone: true, list: [] };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { handelControll: function handelControll() {this.isDone = !this.isDone;},
     getModuleListFunc: function getModuleListFunc() {var _this = this;
       (0, _apiData.getModuleList)().then(function (res) {
         _this.list = res.data;

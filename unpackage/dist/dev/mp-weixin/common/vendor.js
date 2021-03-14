@@ -7912,7 +7912,7 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getAllList = getAllList;exports.getLogin = getLogin;exports.getModuleList = getModuleList;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.getAllList = getAllList;exports.getLogin = getLogin;exports.getModuleList = getModuleList;exports.addModule = addModule;exports.deleteModule = deleteModule;exports.modifyModule = modifyModule;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 查询全部证书
 function getAllList() {
@@ -7930,10 +7930,41 @@ function getLogin(userName, passWord) {
 
 
 }
-// 查询模块
+
+//模块管理
+
+//// 查询模块
 function getModuleList() {
   return (0, _request.default)({
     url: 'admin/findModule' });
+
+}
+////添加模块
+function addModule(name) {
+  return (0, _request.default)({
+    url: 'admin / addModule ',
+    data: {
+      name: name } });
+
+
+}
+////删除模块
+function deleteModule(id) {
+  return (0, _request.default)({
+    url: 'admin/delModuleById/{id}',
+    data: {
+      id: id } });
+
+
+}
+//修改模块
+function modifyModule(id, name) {
+  return (0, _request.default)({
+    url: 'admin/updModuleById/{id}',
+    data: {
+      id: id,
+      name: name } });
+
 
 }
 

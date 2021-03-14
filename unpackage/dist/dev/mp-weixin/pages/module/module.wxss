@@ -1,3 +1,13 @@
+.itemControll.data-v-2dd25c46 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.elseModule.data-v-2dd25c46 {
+  -webkit-box-flex: 8;
+  -webkit-flex: 8;
+          flex: 8;
+}
 .moduleBox.data-v-2dd25c46 {
   width: 90%;
   height: 98rpx;
@@ -6,5 +16,43 @@
   background-color: #F6F6F9;
   border-radius: 10rpx;
   text-align: center;
+}
+.elseButton.data-v-2dd25c46 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #F6F6F9;
+  width: 98rpx;
+  height: 98rpx;
+  border-radius: 49rpx;
+}
+.del.data-v-2dd25c46 {
+  width: 72rpx;
+  height: 2rpx;
+  background-color: grey;
+}
+.controll.data-v-2dd25c46 {
+  position: absolute;
+  bottom: 150rpx;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 150rpx;
+  height: 56rpx;
+  border-radius: 28rpx;
+  background-color: #707070;
+  text-align: center;
+  color: white;
+  line-height: 56rpx;
+  font-size: 28rpx;
+}
+.done.data-v-2dd25c46 {
+  background-color: #FFD90D;
 }
 
