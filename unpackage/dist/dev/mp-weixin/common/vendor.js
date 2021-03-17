@@ -7939,10 +7939,12 @@ function getModuleList() {
     url: 'admin/findModule' });
 
 }
+
 ////添加模块
 function addModule(name) {
   return (0, _request.default)({
-    url: 'admin / addModule ',
+    url: 'admin/addModule',
+    method: 'POST',
     data: {
       name: name } });
 
@@ -7951,6 +7953,8 @@ function addModule(name) {
 ////删除模块
 function deleteModule(id) {
   return (0, _request.default)({
+    // header: {'content-type': 'application/json'},
+    method: "DELETE",
     url: 'admin/delModuleById/{id}',
     data: {
       id: id } });
@@ -7978,9 +7982,9 @@ function modifyModule(id, name) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;var baseURL = 'http://47.106.192.202:1030/';
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = request;var baseURL = 'http://47.106.192.202:1030/';
 
-function _default(options) {
+function request(options) {
   return new Promise(function (resolve, reject) {
     uni.request({
       url: baseURL + options.url,

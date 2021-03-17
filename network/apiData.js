@@ -25,29 +25,33 @@ export function getModuleList() {
 		url: 'admin/findModule'
 	})
 }
+
 ////添加模块
 export function addModule(name) {
 	return request({
-		url: 'admin / addModule ',
-		data:{
+		url: 'admin/addModule',
+		method: 'POST',
+		data: {
 			name
 		}
 	})
 }
 ////删除模块
-export function deleteModule(id){
+export function deleteModule(id) {
 	return request({
-		url:'admin/delModuleById/{id}',
-		data:{
+		// header: {'content-type': 'application/json'},
+		method: "DELETE",
+		url: 'admin/delModuleById/{id}',
+		data: {
 			id
 		}
 	})
 }
 //修改模块
-export function modifyModule(id,name){
+export function modifyModule(id, name) {
 	return request({
-		url:'admin/updModuleById/{id}',
-		data:{
+		url: 'admin/updModuleById/{id}',
+		data: {
 			id,
 			name
 		}

@@ -147,6 +147,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
@@ -163,7 +174,28 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { isDone: true, list: [] };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { handelControll: function handelControll() {this.isDone = !this.isDone;},
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { isDone: true, list: [], name: '' };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { delModule: function delModule(e) {console.log(e);(0, _apiData.deleteModule)(e).then(function (res) {console.log(res);});this.getModuleListFunc();}, add: function add() {if (this.name) {console.log(this.name);(0, _apiData.addModule)(this.name).then(function (res) {
+          console.log(res);
+        });
+      }
+    },
+    handelControll: function handelControll() {
+      this.isDone = !this.isDone;
+      if (this.isDone) {
+        this.getModuleListFunc();
+      }
+    },
     getModuleListFunc: function getModuleListFunc() {var _this = this;
       (0, _apiData.getModuleList)().then(function (res) {
         _this.list = res.data;
