@@ -7945,8 +7945,11 @@ function addModule(name) {
   return (0, _request.default)({
     url: 'admin/addModule',
     method: 'POST',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded' },
+
     data: {
-      name: name } });
+      'name': name } });
 
 
 }

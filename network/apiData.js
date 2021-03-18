@@ -31,8 +31,11 @@ export function addModule(name) {
 	return request({
 		url: 'admin/addModule',
 		method: 'POST',
+		header: {
+			'content-type': 'application/x-www-form-urlencoded', 
+		},
 		data: {
-			name
+			'name':name
 		}
 	})
 }
