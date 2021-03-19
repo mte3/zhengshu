@@ -7949,7 +7949,7 @@ function addModule(name) {
       'content-type': 'application/x-www-form-urlencoded' },
 
     data: {
-      'name': name } });
+      name: name } });
 
 
 }
@@ -7993,6 +7993,7 @@ function request(options) {
       url: baseURL + options.url,
       method: options.method || 'GET',
       data: options.data || {},
+      hander: options.header || {},
       success: resolve,
       fail: reject });
 

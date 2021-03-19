@@ -32,10 +32,10 @@ export function addModule(name) {
 		url: 'admin/addModule',
 		method: 'POST',
 		header: {
-			'content-type': 'application/x-www-form-urlencoded', 
+			'content-type': 'application/x-www-form-urlencoded',
 		},
 		data: {
-			'name':name
+			name
 		}
 	})
 }

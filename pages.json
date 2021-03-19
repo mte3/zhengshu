@@ -43,6 +43,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/addCertificate/addCertificate",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "证书详细",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

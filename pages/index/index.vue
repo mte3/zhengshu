@@ -33,7 +33,7 @@
 					<view>模块管理</view>
 				</view>
 			</view>
-			<view class="addZhengShu">
+			<view class="addZhengShu" @click="addCertificate">
 				+添加证书
 			</view>
 			<view @click="outLogin" class="outLogin">退出</view>
@@ -98,6 +98,12 @@
 						});
 					}
 				});
+			},
+			//跳转到添加正证书页面
+			addCertificate(){
+				uni.navigateTo({
+					url: '../addCertificate/addCertificate'
+				})
 			},
 			// 跳转到模块管理页面
 			pushModule() {

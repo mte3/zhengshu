@@ -231,6 +231,12 @@ var _default = { data: function data() {return { list: [], isLogin: false };}, o
         } });
 
     },
+    //跳转到添加正证书页面
+    addCertificate: function addCertificate() {
+      uni.navigateTo({
+        url: '../addCertificate/addCertificate' });
+
+    },
     // 跳转到模块管理页面
     pushModule: function pushModule() {
       uni.navigateTo({

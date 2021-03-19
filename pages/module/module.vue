@@ -43,9 +43,9 @@
 			this.getModuleListFunc();
 		},
 		methods: {
-			delModule(e){
-				console.log(e)
-				deleteModule(e).then(res => {
+			delModule(id){
+				console.log(id)
+				deleteModule(id).then(res => {
 					console.log(res)
 				})
 				this.getModuleListFunc();
@@ -128,12 +128,12 @@
 	}
 
 	.controll {
-		position: absolute;
-		bottom: 150rpx;
+		position: relative;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 150rpx;
 		height: 56rpx;
+		margin: 120rpx 0;
 		border-radius: 28rpx;
 		background-color: #707070;
 		text-align: center;

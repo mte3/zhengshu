@@ -185,7 +185,7 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { isDone: true, list: [], name: '' };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { delModule: function delModule(e) {console.log(e);(0, _apiData.deleteModule)(e).then(function (res) {console.log(res);});this.getModuleListFunc();}, add: function add() {if (this.name) {console.log(this.name);(0, _apiData.addModule)(this.name).then(function (res) {
+var _default = { data: function data() {return { isDone: true, list: [], name: '' };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { delModule: function delModule(id) {console.log(id);(0, _apiData.deleteModule)(id).then(function (res) {console.log(res);});this.getModuleListFunc();}, add: function add() {if (this.name) {console.log(this.name);(0, _apiData.addModule)(this.name).then(function (res) {
           console.log(res);
         });
       }
