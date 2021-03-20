@@ -104,6 +104,9 @@
 .fatherBox .inputBox .secondBox .eye.data-v-b237504c {
   width: 40rpx;
 }
+.fatherBox .inputBox .image.data-v-b237504c {
+  width: 80rpx;
+}
 .fatherBox .inputBox .loginBox.data-v-b237504c {
   width: 530rpx;
   height: 76rpx;

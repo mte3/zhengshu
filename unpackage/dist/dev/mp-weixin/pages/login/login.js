@@ -153,7 +153,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
+//
+//
+//
+//
+//
 //
 //
 //
@@ -177,12 +187,7 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 var _default = { data: function data() {return { userValue: '', passwordValue: '', typePW: 'password' };}, onShow: function onShow() {// this.userValue = '';
     // this.passwordValue = '';
-  }, methods: { handelEye: function handelEye() {this.typePW = this.typePW === 'password' ? 'text' : 'password';}, pushIndex: function pushIndex() {uni.navigateTo({ url: '../index/index' });}, zhanghao: function zhanghao(event) {
-      this.userValue = event.detail.value;
-      console.log(this.userValue);
-    },
-    password: function password(event) {
-      this.passwordValue = event.detail.value;
+  }, methods: { handelEye: function handelEye() {this.typePW = this.typePW === 'password' ? 'text' : 'password';}, pushIndex: function pushIndex() {uni.navigateTo({ url: '../index/index' });}, zhanghao: function zhanghao(event) {this.userValue = event.detail.value;console.log(this.userValue);}, password: function password(event) {this.passwordValue = event.detail.value;
       console.log(this.passwordValue);
     },
     loginButton: function loginButton() {

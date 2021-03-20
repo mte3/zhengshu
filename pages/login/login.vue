@@ -7,12 +7,17 @@
 		<view class="welText">WELCOME</view>
 		<view class="inputBox">
 			<view class="firstBox">
-				<image src="../../static/image/me.png" mode="widthFix"></image>
-				<input type="text"    @input="zhanghao">
+				<view class="image">
+					<image src="../../static/image/me.png" mode="widthFix"></image>
+				</view>
+				<input type="text" placeholder="请输入账号" @input="zhanghao">
 			</view>
 			<view class="secondBox">
-				<image src="../../static/image/suo.png" mode="widthFix"></image>
-				<input :type="typePW" placeholder="请输入密码" placeholder-style="color:#D4D5D5;font-size:30rpx" @input="password">
+				<view class="image">
+					<image src="../../static/image/suo.png" mode="widthFix"></image>
+				</view>
+				<input :type="typePW" style="width: 100%;" placeholder="请输入密码" placeholder-style="color:#D4D5D5;font-size:30rpx"
+				 @input="password">
 				<image @click="handelEye" src="../../static/image/eye.png" mode="widthFix" class="eye"></image>
 			</view>
 			<view class="loginBox" @click="loginButton">登录</view>
@@ -75,10 +80,10 @@
 								}
 							});
 
-						}else{
+						} else {
 							uni.showToast({
 								title: '账号或密码不正确',
-								icon:'none'
+								icon: 'none'
 							})
 						}
 						console.log(res)
@@ -191,6 +196,10 @@
 				.eye {
 					width: 40rpx;
 				}
+			}
+
+			.image {
+				width: 80rpx;
 			}
 
 			.loginBox {
