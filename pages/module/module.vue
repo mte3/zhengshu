@@ -43,12 +43,13 @@
 			this.getModuleListFunc();
 		},
 		methods: {
-			delModule(id){
+			delModule(id) {
+				let a = id.toString()
 				console.log(id)
-				deleteModule(id).then(res => {
+				deleteModule(a).then(res => {
 					console.log(res)
-				})
 				this.getModuleListFunc();
+				})
 			},
 			add() {
 				if (this.name) {
@@ -62,6 +63,8 @@
 				this.isDone = !this.isDone;
 				if (this.isDone) {
 					this.getModuleListFunc();
+				} else {
+					this.name = ''
 				}
 			},
 			getModuleListFunc() {

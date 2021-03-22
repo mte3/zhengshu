@@ -185,7 +185,8 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { isDone: true, list: [], name: '' };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { delModule: function delModule(id) {console.log(id);(0, _apiData.deleteModule)(id).then(function (res) {console.log(res);});this.getModuleListFunc();}, add: function add() {if (this.name) {console.log(this.name);(0, _apiData.addModule)(this.name).then(function (res) {
+var _default = { data: function data() {return { isDone: true, list: [], name: '' };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { delModule: function delModule(id) {var _this = this;var a = id.toString();console.log(id);(0, _apiData.deleteModule)(a).then(function (res) {console.log(res);_this.getModuleListFunc();});}, add: function add() {if (this.name) {console.log(this.name);
+        (0, _apiData.addModule)(this.name).then(function (res) {
           console.log(res);
         });
       }
@@ -194,12 +195,14 @@ var _default = { data: function data() {return { isDone: true, list: [], name: '
       this.isDone = !this.isDone;
       if (this.isDone) {
         this.getModuleListFunc();
+      } else {
+        this.name = '';
       }
     },
-    getModuleListFunc: function getModuleListFunc() {var _this = this;
+    getModuleListFunc: function getModuleListFunc() {var _this2 = this;
       (0, _apiData.getModuleList)().then(function (res) {
-        _this.list = res.data;
-        console.log(_this.list);
+        _this2.list = res.data;
+        console.log(_this2.list);
       });
     } } };exports.default = _default;
 

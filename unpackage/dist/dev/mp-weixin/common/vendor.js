@@ -7956,9 +7956,11 @@ function addModule(name) {
 ////删除模块
 function deleteModule(id) {
   return (0, _request.default)({
-    // header: {'content-type': 'application/json'},
-    method: "DELETE",
-    url: 'admin/delModuleById/{id}',
+    url: 'admin/delModuleById/' + id,
+    method: 'DELETE',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded' },
+
     data: {
       id: id } });
 
@@ -7967,6 +7969,9 @@ function deleteModule(id) {
 //修改模块
 function modifyModule(id, name) {
   return (0, _request.default)({
+    header: {
+      'content-type': 'application/x-www-form-urlencoded' },
+
     url: 'admin/updModuleById/{id}',
     data: {
       id: id,
@@ -7993,7 +7998,7 @@ function request(options) {
       url: baseURL + options.url,
       method: options.method || 'GET',
       data: options.data || {},
-      hander: options.header || {},
+      header: options.header || {},
       success: resolve,
       fail: reject });
 

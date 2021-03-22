@@ -42,17 +42,22 @@ export function addModule(name) {
 ////删除模块
 export function deleteModule(id) {
 	return request({
-		// header: {'content-type': 'application/json'},
-		method: "DELETE",
-		url: 'admin/delModuleById/{id}',
+		url: 'admin/delModuleById/'+id,
+		method: 'DELETE',
+		header: {
+			'content-type': 'application/x-www-form-urlencoded',
+		},
 		data: {
 			id
-		}
+		},
 	})
 }
 //修改模块
 export function modifyModule(id, name) {
 	return request({
+		header: {
+			'content-type': 'application/x-www-form-urlencoded',
+		},
 		url: 'admin/updModuleById/{id}',
 		data: {
 			id,

@@ -6,7 +6,7 @@ export default function request(options) {
 			url: baseURL + options.url,
 			method: options.method || 'GET',
 			data: options.data || {},
-			hander:options.header || {},
+			header:options.header || {},
 			success: resolve,
 			fail: reject
 		})
