@@ -46,6 +46,15 @@
   height: 5rpx;
   background-color: grey;
 }
+.sure.data-v-2dd25c46 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 64rpx;
+  height: 72rpx;
+}
 .controll.data-v-2dd25c46 {
   position: relative;
   left: 50%;

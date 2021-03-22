@@ -58,7 +58,8 @@ export function modifyModule(id, name) {
 		header: {
 			'content-type': 'application/x-www-form-urlencoded',
 		},
-		url: 'admin/updModuleById/{id}',
+		url: 'admin/updModuleById/'+id,
+		method:'PUT',
 		data: {
 			id,
 			name

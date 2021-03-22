@@ -6,10 +6,14 @@
 		</view>
 
 		<!-- 点击了编辑显示 -->
-		<view v-if="!isDone" v-for="item in list" :key="item.id" class="itemControll">
-			<view class="moduleBox elseModule"><input class="addInput" :value='item.name' type="text"></view>
-			<view class="elseButton" @click="delModule(item.id)">
+		<view v-if="!isDone" v-for="(item,i) in list" :key="item.id" class="itemControll">
+			<view class="moduleBox elseModule"><input class="addInput" v-model="item.name" @input="modifyModule(item.id)" type="text"></view>
+			<view v-if="(cIndex!=item.id)" class="elseButton" @click="delModule(item.id)">
 				<view class="del"></view>
+			</view>
+
+			<view v-if="(cIndex==item.id)" class="elseButton" @click="sureModifyModule(i,item.id)">
+				<image class="sure" src="../../static/image/sure.png" mode=""></image>
 			</view>
 		</view>
 
@@ -29,38 +33,56 @@
 	import {
 		getModuleList,
 		addModule,
-		deleteModule
+		deleteModule,
+		modifyModule
 	} from '../../network/apiData.js'
 	export default {
 		data() {
 			return {
 				isDone: true,
 				list: [],
-				name: ''
+				// newName:'',
+				name: '',
+				cIndex: null,
 			}
 		},
 		onLoad() {
 			this.getModuleListFunc();
 		},
 		methods: {
+			modifyModule(id) {
+				// this.newName = this.list[i].name
+				// console.log(this.newName)
+				this.cIndex = id
+			},
+			sureModifyModule(i, id) {
+				console.log(this.list[i].name)
+				modifyModule(id,this.list[i].name).then(res => {
+					this.cIndex = null
+					console.log(res)
+				})
+			},
 			delModule(id) {
 				let a = id.toString()
 				console.log(id)
 				deleteModule(a).then(res => {
 					console.log(res)
-				this.getModuleListFunc();
+					this.getModuleListFunc();
 				})
 			},
 			add() {
 				if (this.name) {
 					console.log(this.name)
 					addModule(this.name).then(res => {
+						this.getModuleListFunc();
+						this.name = ''
 						console.log(res)
 					})
 				}
 			},
 			handelControll() {
 				this.isDone = !this.isDone;
+				this.cIndex = null
 				if (this.isDone) {
 					this.getModuleListFunc();
 				} else {
@@ -70,7 +92,6 @@
 			getModuleListFunc() {
 				getModuleList().then(res => {
 					this.list = res.data
-					console.log(this.list)
 				})
 			}
 		}
@@ -128,6 +149,15 @@
 		width: 49rpx;
 		height: 5rpx;
 		background-color: grey;
+	}
+
+	.sure {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 64rpx;
+		height: 72rpx;
 	}
 
 	.controll {

@@ -158,6 +158,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
@@ -185,24 +189,41 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { isDone: true, list: [], name: '' };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { delModule: function delModule(id) {var _this = this;var a = id.toString();console.log(id);(0, _apiData.deleteModule)(a).then(function (res) {console.log(res);_this.getModuleListFunc();});}, add: function add() {if (this.name) {console.log(this.name);
+//
+//
+//
+//
+var _default = { data: function data() {return { isDone: true, list: [], // newName:'',
+      name: '', cIndex: null };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { modifyModule: function modifyModule(id) {// this.newName = this.list[i].name
+      // console.log(this.newName)
+      this.cIndex = id;}, sureModifyModule: function sureModifyModule(i, id) {var _this = this;console.log(this.list[i].name);(0, _apiData.modifyModule)(id, this.list[i].name).then(function (res) {_this.cIndex = null;console.log(res);});}, delModule: function delModule(id) {var _this2 = this;var a = id.toString();console.log(id);
+      (0, _apiData.deleteModule)(a).then(function (res) {
+        console.log(res);
+        _this2.getModuleListFunc();
+      });
+    },
+    add: function add() {var _this3 = this;
+      if (this.name) {
+        console.log(this.name);
         (0, _apiData.addModule)(this.name).then(function (res) {
+          _this3.getModuleListFunc();
+          _this3.name = '';
           console.log(res);
         });
       }
     },
     handelControll: function handelControll() {
       this.isDone = !this.isDone;
+      this.cIndex = null;
       if (this.isDone) {
         this.getModuleListFunc();
       } else {
         this.name = '';
       }
     },
-    getModuleListFunc: function getModuleListFunc() {var _this2 = this;
+    getModuleListFunc: function getModuleListFunc() {var _this4 = this;
       (0, _apiData.getModuleList)().then(function (res) {
-        _this2.list = res.data;
-        console.log(_this2.list);
+        _this4.list = res.data;
       });
     } } };exports.default = _default;
 
