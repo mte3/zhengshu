@@ -188,7 +188,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
+//
+//
 //
 //
 //
@@ -257,8 +261,7 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
       staIndex: 0, //状态 1通过/2驳回
       list: [], moduleList: [], //模块列表
       //级别列表
-      level: [{ id: 0, text: '请选择' }, { id: 1, text: '国家级' }, { id: 2, text: '省级' }, { id: 3, text: '市厅级' }, { id: 4, text: '校级' }, { id: 5, text: '学院级' }],
-      //奖项列表
+      level: [{ id: 0, text: '请选择' }, { id: 1, text: '国家级' }, { id: 2, text: '省级' }, { id: 3, text: '市厅级' }, { id: 4, text: '校级' }, { id: 5, text: '学院级' }], //奖项列表
       prize: [
       '请选择',
       '一等奖',
@@ -272,15 +275,34 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
 
       //分值列表
       score: ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      state: ['请选择', '通过', '驳回'] //状态列表
-    };
+      state: ['通过', '驳回'], //状态列表
+      reason: '' };
+
   },
   onLoad: function onLoad() {
     this.getModuleListFunc();
   },
   methods: {
     handelControll: function handelControll() {
-      console.log("图片" + this.image + "===========名称：" + this.name + "============模块：" + this.module + "============级别：" + this.lev + "============奖项：" + this.pri + "============分数：" + this.sco + "============状态：" + this.sta);
+      if (!this.isDone) {
+        var datas = {
+          awards: this.pri,
+          fraction: this.sco,
+          levelId: this.lev,
+          moduleId: this.module,
+          name: this.name,
+          picture: this.image,
+          reason: this.reason,
+          status: this.sta,
+          图片: this.image };
+        (0, _apiData.addCertificate)(datas).
+        then(function (res) {
+          console.log(res);
+        });
+      }
+
+      console.log("图片" + this.image + "===========名称：" + this.name + "============模块：" + this.module + "============级别：" +
+      this.lev + "============奖项：" + this.pri + "============分数：" + this.sco + "================原因" + this.reason + "============状态：" + this.sta);
     },
 
     //调用相机/从本地选择图片
@@ -302,7 +324,7 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
 
     //选择器
     bindPickerChange: function bindPickerChange(i, e) {
-      if (this.image && this.name && this.module && this.lev && this.pri && this.sco && this.sta) {
+      if (this.image && this.name && this.module && this.lev && this.pri && this.sco) {
         this.isDone = false;
       }
       console.log(i);
@@ -328,8 +350,10 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
       } else if (i == 5) {
         //状态参数
         this.staIndex = e.detail.value;
-        if (e.detail.value == 2) {
+        if (e.detail.value == 1) {
           this.sta = false;
+        } else {
+          this.sta = true;
         }
       }
     } } };exports.default = _default;

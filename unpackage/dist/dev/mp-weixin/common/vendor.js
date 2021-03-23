@@ -7912,7 +7912,7 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getAllList = getAllList;exports.getLogin = getLogin;exports.getModuleList = getModuleList;exports.addModule = addModule;exports.deleteModule = deleteModule;exports.modifyModule = modifyModule;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.getAllList = getAllList;exports.getLogin = getLogin;exports.getModuleList = getModuleList;exports.addModule = addModule;exports.deleteModule = deleteModule;exports.modifyModule = modifyModule;exports.addCertificate = addCertificate;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 // 查询全部证书
 function getAllList() {
@@ -7977,6 +7977,29 @@ function modifyModule(id, name) {
     data: {
       id: id,
       name: name } });
+
+
+}
+
+//添加证书
+function addCertificate(detail) {
+  return (0, _request.default)({
+    url: 'admin/addCertificate',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded' },
+
+    method: 'POST',
+    data: _objectSpread({},
+    detail) });
+
+
+
+
+
+
+
+
+
 
 
 }

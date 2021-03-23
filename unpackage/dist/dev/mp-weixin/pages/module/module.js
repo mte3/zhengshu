@@ -216,6 +216,7 @@ var _default = { data: function data() {return { isDone: true, list: [], // newN
       this.isDone = !this.isDone;
       this.cIndex = null;
       if (this.isDone) {
+        this.add();
         this.getModuleListFunc();
       } else {
         this.name = '';

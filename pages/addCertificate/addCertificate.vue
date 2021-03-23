@@ -48,8 +48,10 @@
 					</view>
 				</picker>
 			</view>
-
 		</view>
+		<view v-if="!sta" class="reason">
+			<textarea class="textarea" type="text" v-model="reason" maxlength="-1" placeholder="请输入原因......" />
+			</view>
 		<!-- 编辑/完成 按钮 -->
 		<view class="controll" :class="{'done':!isDone} " @click="handelControll">{{isDone?'编辑':'完成'}}</view>
 	</view>
@@ -58,6 +60,7 @@
 <script>
 	import {
 		getModuleList,
+		addCertificate
 	} from '../../network/apiData.js'
 	export default {
 		data() {
@@ -140,7 +143,8 @@
 				],
 				//分值列表
 				score: ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ],
-				state: ['请选择', '通过', '驳回'], //状态列表
+				state: ['通过', '驳回'], //状态列表
+				reason: ''
 			}
 		},
 		onLoad() {
@@ -148,7 +152,25 @@
 		},
 		methods: {
 			handelControll() {
-				console.log("图片"+this.image+"===========名称："+this.name+"============模块："+this.module+"============级别："+this.lev+"============奖项："+this.pri+"============分数："+this.sco+"============状态："+this.sta)
+				if (!this.isDone) {
+					let datas = {
+					    awards:this.pri,
+						fraction: this.sco,
+						levelId: this.lev,
+						moduleId:this.module, 
+						name: this.name, 
+						picture:this.image, 
+						reason:this.reason,
+						status: this.sta,
+						图片:this.image}
+					addCertificate(datas)
+						.then(res => {
+							console.log(res)
+						})
+				}
+				
+				console.log("图片" + this.image + "===========名称：" + this.name + "============模块：" + this.module + "============级别：" +
+					this.lev + "============奖项：" + this.pri + "============分数："+ this.sco +"================原因"+this.reason + "============状态：" + this.sta)
 			},
 
 			//调用相机/从本地选择图片
@@ -170,7 +192,7 @@
 
 			//选择器
 			bindPickerChange(i, e) {
-				if(this.image&&this.name&&this.module&&this.lev&&this.pri&&this.sco&&this.sta){
+				if (this.image && this.name && this.module && this.lev && this.pri && this.sco) {
 					this.isDone = false
 				}
 				console.log(i)
@@ -196,8 +218,10 @@
 				} else if (i == 5) {
 					//状态参数
 					this.staIndex = e.detail.value
-					if (e.detail.value == 2) {
+					if (e.detail.value == 1) {
 						this.sta = false
+					}else{
+						this.sta = true
 					}
 				}
 			},
@@ -266,7 +290,17 @@
 		line-height: 56rpx;
 		font-size: 28rpx;
 	}
-
+   .reason{
+	width: calc(100%-72rpx);
+	height: 320rpx;
+	margin: 24rpx;
+	padding: 12rpx;
+	font-size: 32rpx;
+	background-color: #EDEEF2;
+}
+.textarea{
+	width: 100%;
+}
 	.done {
 		background-color: #FFD90D;
 	}
