@@ -12,56 +12,18 @@
 			<view v-if="i==0"><input type="text" v-model="name" style="direction: rtl;" placeholder="请输入"></view>
 
 			<view v-if="i>0" class="choice">
-				<picker @change="bindPickerChange(i,$event)" :value="moduleIndex" :range="choice[i-1]" range-key="choice[i-1].name? name:'' ">
+				<picker @change="bindPickerChange(i,$event)" :value="choiceIndex[i-1]" :range="choice[i-1]" :range-key="i<3?'name':'' ">
 					<view class="picker">
-						{{choice[i-1][moduleIndex].name?choice[i-1][moduleIndex].name:choice[i-1][moduleIndex]}}
+						{{choice[i-1][choiceIndex[i-1]].name?choice[i-1][choiceIndex[i-1]].name:choice[i-1][choiceIndex[i-1]]}}
 					</view>
 				</picker>
 			</view>
-
-			<!-- <view v-if="i==1">
-				<picker @change="bindPickerChange(i,$event)" :value="moduleIndex" :range="list" range-key="name">
-					<view class="picker">
-						{{list[moduleIndex].name}}
-					</view>
-				</picker>
-			</view>
-
-			<view v-if="i==2">
-				<picker @change="bindPickerChange(i,$event)" :value="levIndex" :range="level" range-key="text">
-					<view class="picker">
-						{{level[levIndex].text}}
-					</view>
-				</picker>
-			</view>
-
-			<view v-if="i==3">
-				<picker @change="bindPickerChange(i,$event)" :value="priIndex" :range="prize">
-					<view class="picker">
-						{{prize[priIndex]}}
-					</view>
-				</picker>
-			</view>
-
-			<view v-if="i==4">
-				<picker @change="bindPickerChange(i,$event)" :value="scoIndex" :range="score">
-					<view class="picker">
-						{{score[scoIndex]}}
-					</view>
-				</picker>
-			</view>
-
-			<view v-if="i==5">
-				<picker @change="bindPickerChange(i,$event)" :value="staIndex" :range="state">
-					<view class="picker">
-						{{state[staIndex]}}
-					</view>
-				</picker>
-			</view> -->
+			
 		</view>
 		<view v-if="!sta" class="reason">
 			<textarea class="textarea" type="text" v-model="reason" maxlength="-1" placeholder="请输入原因......" />
 			</view>
+			
 		<!-- 编辑/完成 按钮 -->
 		<view class="controll" :class="{'done':!isDone} " @click="handelControll">{{isDone?'编辑':'完成'}}</view>
 	</view>
@@ -110,13 +72,10 @@
 				sco: null, //第六个参数 分值
 				sta: true, //第七个参数 状态/默认true 
 
-				moduleIndex: 0,
-				levIndex: 0, //级别id
-				priIndex: 0,
-				scoIndex: 0, //分值
-				staIndex: 0, //状态 1通过/2驳回
-
 				list: [],
+				choiceIndex:[
+					0,0,0,0,0,
+				],
 				choice:[
 					[], //choice模块列表
 					[{
@@ -151,45 +110,9 @@
 					],//choice奖项列表
 					['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ],//choice分值列表
 					['通过', '驳回'], //choice//状态列表
-					
-				],
+			
+				],//选择列表
 
-				
-				//级别列表
-				level: [{
-					id: 0,
-					text: '请选择'
-				}, {
-					id: 1,
-					text: '国家级'
-				}, {
-					id: 2,
-					text: '省级'
-				}, {
-					id: 3,
-					text: '市厅级'
-				}, {
-					id: 4,
-					text: '校级'
-				}, {
-					id: 5,
-					text: '学院级'
-				}],
-				//奖项列表
-				prize: [
-					'请选择',
-					'一等奖',
-					'二等奖',
-					'三等奖',
-					'其他奖项',
-					'第一名',
-					'二，三名',
-					'四至六名',
-					'七至十名',
-				],
-				//分值列表
-				score: ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ],
-				state: ['通过', '驳回'], //状态列表
 				reason: ''
 			}
 		},
@@ -246,27 +169,23 @@
 				}
 				console.log(i)
 				console.log('picker发送选择改变，携带值为', e.detail.value)
+				
+				this.choiceIndex[i-1] = e.detail.value
 				if (i == 1) {
 					//模块参数
-					this.moduleIndex = e.detail.value
-					// this.module = this.list[this.moduleIndex].name
-					this.module = this.list[this.moduleIndex].id
+					this.module = this.choice[i-1][this.choiceIndex[i-1]].id
 				} else if (i == 2) {
 					//级别参数
-					this.levIndex = e.detail.value
-					// this.lev = this.level[this.levIndex].text
-					this.lev = this.level[this.levIndex].id
+					this.lev = this.choice[i-1][this.choiceIndex[i-1]].id
+					// this.lev = this.level[this.levIndex].id
 				} else if (i == 3) {
 					//奖项参数
-					this.priIndex = e.detail.value
-					this.pri = this.prize[this.priIndex]
+					this.pri = this.choice[i-1][this.choiceIndex[i-1]]
 				} else if (i == 4) {
 					//分数参数
-					this.scoIndex = e.detail.value
 					this.sco = e.detail.value
 				} else if (i == 5) {
 					//状态参数
-					this.staIndex = e.detail.value
 					if (e.detail.value == 1) {
 						this.sta = false
 					}else{

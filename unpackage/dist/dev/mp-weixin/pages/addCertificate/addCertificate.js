@@ -162,44 +162,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
@@ -231,84 +193,43 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { data: function data() {return { isDone: true, certificate: [{ title: '名称', text: '请输入' }, { title: '模块', text: '请选择' }, { title: '级别', text: '请选择' }, { title: '奖项', text: '请选择' }, { title: '分值', text: '请选择' }, { title: '状态', text: '请选择' }], image: null, //第一个参数
+var _default = { data: function data() {return { isDone: true, certificate: [{ title: '名称', text: '请输入' }, { title: '模块', text: '请选择' }, { title: '级别', text: '请选择' }, { title: '奖项', text: '请选择' }, { title: '分值', text: '请选择' }, { title: '状态', text: '请选择' }],
+
+
+      image: null, //第一个参数
       name: null, //第二个参数 名称
       module: null, //第三个参数 模块
       lev: null, //第四个参数 级别
       pri: null, //第五个参数 奖项
       sco: null, //第六个参数 分值
       sta: true, //第七个参数 状态/默认true 
-      moduleIndex: 0, levIndex: 0, //级别id
-      priIndex: 0, scoIndex: 0, //分值
-      staIndex: 0, //状态 1通过/2驳回
-      list: [], choice: [[], //choice模块列表
-      [{ id: 0, name: '请选择' }, { id: 1, name: '国家级' }, { id: 2, name: '省级' }, { id: 3, name: '市厅级' }, { id: 4, name: '校级' }, { id: 5, name: '学院级' }], //choice级别列表
-      ['请选择', '一等奖', '二等奖', '三等奖', '其他奖项', '第一名', '二，三名', '四至六名', '七至十名'], //choice奖项列表
-      ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], //choice分值列表
-      ['通过', '驳回'] //choice//状态列表
-      ],
 
+      list: [],
+      choiceIndex: [
+      0, 0, 0, 0, 0],
 
-      //级别列表
-      level: [{
+      choice: [
+      [], //choice模块列表
+      [{
         id: 0,
-        text: '请选择' },
+        name: '请选择' },
       {
         id: 1,
-        text: '国家级' },
+        name: '国家级' },
       {
         id: 2,
-        text: '省级' },
+        name: '省级' },
       {
         id: 3,
-        text: '市厅级' },
+        name: '市厅级' },
       {
         id: 4,
-        text: '校级' },
+        name: '校级' },
       {
         id: 5,
-        text: '学院级' }],
-
-      //奖项列表
-      prize: [
+        name: '学院级' }],
+      //choice级别列表
+      [
       '请选择',
       '一等奖',
       '二等奖',
@@ -318,10 +239,12 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
       '二，三名',
       '四至六名',
       '七至十名'],
+      //choice奖项列表
+      ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], //choice分值列表
+      ['通过', '驳回'] //choice//状态列表
+      ],
+      //选择列表
 
-      //分值列表
-      score: ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      state: ['通过', '驳回'], //状态列表
       reason: '' };
 
   },
@@ -378,27 +301,23 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
       }
       console.log(i);
       console.log('picker发送选择改变，携带值为', e.detail.value);
+
+      this.choiceIndex[i - 1] = e.detail.value;
       if (i == 1) {
         //模块参数
-        this.moduleIndex = e.detail.value;
-        // this.module = this.list[this.moduleIndex].name
-        this.module = this.list[this.moduleIndex].id;
+        this.module = this.choice[i - 1][this.choiceIndex[i - 1]].id;
       } else if (i == 2) {
         //级别参数
-        this.levIndex = e.detail.value;
-        // this.lev = this.level[this.levIndex].text
-        this.lev = this.level[this.levIndex].id;
+        this.lev = this.choice[i - 1][this.choiceIndex[i - 1]].id;
+        // this.lev = this.level[this.levIndex].id
       } else if (i == 3) {
         //奖项参数
-        this.priIndex = e.detail.value;
-        this.pri = this.prize[this.priIndex];
+        this.pri = this.choice[i - 1][this.choiceIndex[i - 1]];
       } else if (i == 4) {
         //分数参数
-        this.scoIndex = e.detail.value;
         this.sco = e.detail.value;
       } else if (i == 5) {
         //状态参数
-        this.staIndex = e.detail.value;
         if (e.detail.value == 1) {
           this.sta = false;
         } else {
