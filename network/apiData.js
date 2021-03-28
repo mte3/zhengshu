@@ -16,7 +16,16 @@ export function getLogin(userName, passWord) {
 		}
 	})
 }
-// 按条件查询证书
+//管理者Manager按条件查询证书
+export function getManagerSearch(name) {
+	return request({
+		url: 'admin/listGetCertificates',
+		data: {
+			name
+		}
+	})
+}
+// 游客按条件查询证书
 export function getSearch(name) {
 	return request({
 		url: 'tourist/listCertificateByName',
@@ -109,6 +118,16 @@ export function addCertificate(detail) {
 			// reason,//原因（驳回状态）
 			// status,//状态（true/false）
 			// file//图片
+		}
+	})
+}
+
+//证书管理主页面
+export function glCertificate(status){
+	return request({
+		url:'admin/listCertificateByStatus',
+		data:{
+			status
 		}
 	})
 }

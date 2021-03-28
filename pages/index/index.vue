@@ -1,6 +1,7 @@
 <template>
 
 	<view class="fatherBox">
+		<!-- 没登录 -->
 		<view v-if="!isLogin">
 			<view class="headBox">
 				<view class="leftBox" @click="pushLogin">
@@ -15,15 +16,17 @@
 				</view>
 			</view>
 
+<!-- 证书列表 -->
 			<view class="contentBox" v-if="!isSelectBoxShow">
 				<view class="itemBox" v-for="item in list" :key="item.id" @click="pushDetail(item.id)">
 					<text style="margin-left: 10rpx;">{{item.name}}</text>
 					<image :src=item.picture mode="widthFix"></image>
 				</view>
 			</view>
+			<!-- 筛选证书 -->
 			<view v-if="isSelectBoxShow" class="isSelectBox">
 				<view class="leftSelctBox">
-					<view class="itemBox" v-for="(item,index) in selectList" @click="selectItem(item.id)"
+					<view class="itemBox" v-for="(item,index)  in selectList" @click="selectItem(item.id)"
 						:class="{'isSelect':selectLeftId==index+1}">{{item.name}}</view>
 				</view>
 				<view class="rightSelectBox" v-if="selectLeftId==1">
@@ -37,6 +40,7 @@
 					</view>
 				</view>
 			</view>
+			<!-- 登录后 -->
 		</view>
 		<view v-if="isLogin">
 			<view class="flexBox">
@@ -107,8 +111,8 @@
 				}],
 				selectLeftId: 1,
 				selectRightId: 1,
-				selectValueshzt: '', //选择框右边选择的内容
-				selectValuejfmk: '', //选择框右边选择的内容
+				selectValueshzt: null, //选择框右边选择的内容 status
+				selectValuejfmk: null, //选择框右边选择的内容 module id
 			}
 		},
 		onLoad() {
@@ -122,21 +126,29 @@
 			selectRightshenhe(item) {
 				this.selectRightId = item.id;
 				this.selectValueshzt = item.status;
-				this.isSelectBoxShow = false
-				// getSelect(this.selectValueshzt, this.selectValuejfmk).then(res => {
-				// 	this.list = res
-				// 	console.log(res)
-				// })
+				// this.isSelectBoxShow = false
 				console.log(this.selectValueshzt)
 			},
-			//筛选框左边盒子点击事件
+			//筛选框左边盒子点击事件 标题
 			selectItem(id) {
 				this.selectLeftId = id
 				console.log(id)
 			},
-			//点击筛选按钮
+			//筛选框右边盒子点击事件 //模块id
+			selectRight(i){
+				this.selectValuejfmk = i.id
+				console.log(this.selectValuejfmk)
+				console.log(this.selectValueshzt)
+			},
+			//点击筛选按钮 显示/隐藏筛选框
 			selectClick() {
 				this.isSelectBoxShow = !this.isSelectBoxShow;
+				if(this.isSelectBoxShow){
+					getSearch(this.selectValuejfmk,this.selectValueshzt).then(res => {
+						this.list = res.data
+						console.log(this.list)
+					})
+				}
 				console.log(this.isSelectBoxShow)
 			},
 			//跳转到证书详情页
@@ -204,6 +216,12 @@
 			addCertificate() {
 				uni.navigateTo({
 					url: '../addCertificate/addCertificate'
+				})
+			},
+			// 跳转到管理证书页面
+			pushCertificate(){
+				uni.navigateTo({
+					url: '../managementCertificate/managementCertificate'
 				})
 			},
 			// 跳转到模块管理页面

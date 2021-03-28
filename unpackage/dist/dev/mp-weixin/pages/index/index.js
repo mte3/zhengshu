@@ -190,7 +190,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
+//
+//
+//
+//
 //
 //
 //
@@ -251,24 +259,28 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 var _default = { data: function data() {return { list: [], isLogin: false, searchValue: '', //搜索框内容
       isSelectBoxShow: false, //筛选是否展开
-      selectList: [{ id: 1, name: '审核状态', list: [{ id: 1, title: '驳回', status: false }, { id: 2, title: '通过', status: true }] }, { id: 2, name: '加分模块', list: [{ id: 1, title: '思想政治' }, { id: 2, title: '技术技能' }, { id: 3, title: '身心健康' }, { id: 4, title: '创新创业' }, { id: 5, title: '人文艺术' }, { id: 6, title: '志愿服务' }] }], selectLeftId: 1, selectRightId: 1, selectValueshzt: '', //选择框右边选择的内容
-      selectValuejfmk: '' //选择框右边选择的内容
+      selectList: [{ id: 1, name: '审核状态', list: [{ id: 1, title: '驳回', status: false }, { id: 2, title: '通过', status: true }] }, { id: 2, name: '加分模块', list: [{ id: 1, title: '思想政治' }, { id: 2, title: '技术技能' }, { id: 3, title: '身心健康' }, { id: 4, title: '创新创业' }, { id: 5, title: '人文艺术' }, { id: 6, title: '志愿服务' }] }], selectLeftId: 1, selectRightId: 1, selectValueshzt: null, //选择框右边选择的内容 status
+      selectValuejfmk: null //选择框右边选择的内容 module id
     };}, onLoad: function onLoad() {this.getAllListFunc();}, onShow: function onShow() {this.checkisLogin();}, methods: { //筛选框右边盒子点击事件
-    selectRightshenhe: function selectRightshenhe(item) {this.selectRightId = item.id;this.selectValueshzt = item.status;this.isSelectBoxShow = false;
-      // getSelect(this.selectValueshzt, this.selectValuejfmk).then(res => {
-      // 	this.list = res
-      // 	console.log(res)
-      // })
+    selectRightshenhe: function selectRightshenhe(item) {this.selectRightId = item.id;this.selectValueshzt = item.status; // this.isSelectBoxShow = false
+      console.log(this.selectValueshzt);}, //筛选框左边盒子点击事件 标题
+    selectItem: function selectItem(id) {this.selectLeftId = id;console.log(id);
+    },
+    //筛选框右边盒子点击事件 //模块id
+    selectRight: function selectRight(i) {
+      this.selectValuejfmk = i.id;
+      console.log(this.selectValuejfmk);
       console.log(this.selectValueshzt);
     },
-    //筛选框左边盒子点击事件
-    selectItem: function selectItem(id) {
-      this.selectLeftId = id;
-      console.log(id);
-    },
-    //点击筛选按钮
-    selectClick: function selectClick() {
+    //点击筛选按钮 显示/隐藏筛选框
+    selectClick: function selectClick() {var _this = this;
       this.isSelectBoxShow = !this.isSelectBoxShow;
+      if (this.isSelectBoxShow) {
+        (0, _apiData.getSearch)(this.selectValuejfmk, this.selectValueshzt).then(function (res) {
+          _this.list = res.data;
+          console.log(_this.list);
+        });
+      }
       console.log(this.isSelectBoxShow);
     },
     //跳转到证书详情页
@@ -285,30 +297,30 @@ var _default = { data: function data() {return { list: [], isLogin: false, searc
       console.log(this.searchValue);
     },
     // 检查是否登录状态
-    checkisLogin: function checkisLogin() {var _this = this;
+    checkisLogin: function checkisLogin() {var _this2 = this;
       uni.getStorage({
         key: 'isLogin',
         success: function success(res) {
-          _this.isLogin = true;
-          console.log(_this.isLogin);
+          _this2.isLogin = true;
+          console.log(_this2.isLogin);
         },
         fail: function fail(err) {
-          _this.isLogin = false;
+          _this2.isLogin = false;
         } });
 
     },
     //搜索请求
-    getSearchFunc: function getSearchFunc(name) {var _this2 = this;
+    getSearchFunc: function getSearchFunc(name) {var _this3 = this;
       (0, _apiData.getSearch)(name).then(function (res) {
-        _this2.list = res.data;
+        _this3.list = res.data;
         console.log(res);
-        console.log(_this2.list);
+        console.log(_this3.list);
       });
     },
-    getAllListFunc: function getAllListFunc() {var _this3 = this;
+    getAllListFunc: function getAllListFunc() {var _this4 = this;
       (0, _apiData.getAllList)().then(function (res) {
-        _this3.list = res.data;
-        console.log(_this3.list);
+        _this4.list = res.data;
+        console.log(_this4.list);
       }).catch(function (err) {
         console.log(err);
       });
@@ -321,11 +333,11 @@ var _default = { data: function data() {return { list: [], isLogin: false, searc
       }
     },
     // 退出登录按钮
-    outLogin: function outLogin() {var _this4 = this;
+    outLogin: function outLogin() {var _this5 = this;
       uni.removeStorage({
         key: 'isLogin',
         success: function success(res) {
-          _this4.checkisLogin();
+          _this5.checkisLogin();
           uni.showToast({
             title: '退出登录' });
 
@@ -336,6 +348,12 @@ var _default = { data: function data() {return { list: [], isLogin: false, searc
     addCertificate: function addCertificate() {
       uni.navigateTo({
         url: '../addCertificate/addCertificate' });
+
+    },
+    // 跳转到管理证书页面
+    pushCertificate: function pushCertificate() {
+      uni.navigateTo({
+        url: '../managementCertificate/managementCertificate' });
 
     },
     // 跳转到模块管理页面
