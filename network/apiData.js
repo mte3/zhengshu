@@ -16,7 +16,30 @@ export function getLogin(userName, passWord) {
 		}
 	})
 }
+// 按条件查询证书
+export function getSearch(name) {
+	return request({
+		url: 'tourist/listCertificateByName',
+		data: {
+			name
+		}
+	})
+}
+export function getSelect(name) {
+	return request({
+		url: 'tourist/listCertificateBySelect ',
+		data: {
+			name
+		}
+	})
+}
+//证书详情
+export function getCertificateDetail(id) {
+	return request({
+		url: 'tourist/getCertificateById/' + id,
 
+	})
+}
 //模块管理
 
 //// 查询模块

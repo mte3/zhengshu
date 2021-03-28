@@ -1,15 +1,25 @@
 <template>
 	<view>
+		<!-- 图片 -->
 		<view class="addPicture" @click="addPicture">
 			<view v-if="!image" class="icon">+</view>
 			<image v-if="image&&image!=''" mode="aspectFit" :src="image"></image>
 		</view>
+
 		<view v-for="(item,i) in certificate" :key='i' class="list">
 
 			<view class="title">{{item.title}}</view>
 			<view v-if="i==0"><input type="text" v-model="name" style="direction: rtl;" placeholder="请输入"></view>
 
-			<view v-if="i==1">
+			<view v-if="i>0" class="choice">
+				<picker @change="bindPickerChange(i,$event)" :value="moduleIndex" :range="choice[i-1]" range-key="choice[i-1].name? name:'' ">
+					<view class="picker">
+						{{choice[i-1][moduleIndex].name?choice[i-1][moduleIndex].name:choice[i-1][moduleIndex]}}
+					</view>
+				</picker>
+			</view>
+
+			<!-- <view v-if="i==1">
 				<picker @change="bindPickerChange(i,$event)" :value="moduleIndex" :range="list" range-key="name">
 					<view class="picker">
 						{{list[moduleIndex].name}}
@@ -47,7 +57,7 @@
 						{{state[staIndex]}}
 					</view>
 				</picker>
-			</view>
+			</view> -->
 		</view>
 		<view v-if="!sta" class="reason">
 			<textarea class="textarea" type="text" v-model="reason" maxlength="-1" placeholder="请输入原因......" />
@@ -107,8 +117,44 @@
 				staIndex: 0, //状态 1通过/2驳回
 
 				list: [],
+				choice:[
+					[], //choice模块列表
+					[{
+						id: 0,
+						name: '请选择'
+					}, {
+						id: 1,
+						name: '国家级'
+					}, {
+						id: 2,
+						name: '省级'
+					}, {
+						id: 3,
+						name: '市厅级'
+					}, {
+						id: 4,
+						name: '校级'
+					}, {
+						id: 5,
+						name: '学院级'
+					}],//choice级别列表
+					[
+						'请选择',
+						'一等奖',
+						'二等奖',
+						'三等奖',
+						'其他奖项',
+						'第一名',
+						'二，三名',
+						'四至六名',
+						'七至十名',
+					],//choice奖项列表
+					['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ],//choice分值列表
+					['通过', '驳回'], //choice//状态列表
+					
+				],
 
-				moduleList: [], //模块列表
+				
 				//级别列表
 				level: [{
 					id: 0,
@@ -148,7 +194,8 @@
 			}
 		},
 		onLoad() {
-			this.getModuleListFunc()
+			this.getModuleListFunc();
+			
 		},
 		methods: {
 			handelControll() {
@@ -187,6 +234,8 @@
 			getModuleListFunc() {
 				getModuleList().then(res => {
 					this.list = res.data
+					this.choice[0]=res.data
+					console.log(this.choice[0])
 				})
 			},
 

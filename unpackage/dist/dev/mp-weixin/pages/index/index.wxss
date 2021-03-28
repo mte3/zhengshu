@@ -99,4 +99,32 @@
   line-height: 56rpx;
   font-size: 28rpx;
 }
+.isSelectBox.data-v-57280228 {
+  margin-top: 90rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  text-align: center;
+}
+.isSelectBox .leftSelctBox.data-v-57280228 {
+  width: 40%;
+  height: 1106rpx;
+  background-color: #F6F6F9;
+}
+.isSelectBox .rightSelectBox.data-v-57280228 {
+  width: 60%;
+}
+.isSelectBox .rightSelectBox .rightItemBox.data-v-57280228 {
+  height: 87rpx;
+  line-height: 87rpx;
+  border-bottom: 1rpx solid #EAEBF2;
+  border-left: 1rpx solid #EAEBF2;
+}
+.isSelectBox .itemBox.data-v-57280228 {
+  height: 87rpx;
+  line-height: 87rpx;
+}
+.isSelect.data-v-57280228 {
+  background-color: #FFFFFF;
+}
 

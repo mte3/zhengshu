@@ -174,6 +174,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
@@ -217,14 +233,99 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { list: [], isLogin: false };}, onLoad: function onLoad() {this.getAllListFunc();}, onShow: function onShow() {this.checkisLogin();}, methods: { // 检查是否登录状态
-    checkisLogin: function checkisLogin() {var _this = this;uni.getStorage({ key: 'isLogin', success: function success(res) {_this.isLogin = true;console.log(_this.isLogin);}, fail: function fail(err) {_this.isLogin = false;} });}, getAllListFunc: function getAllListFunc() {var _this2 = this;(0, _apiData.getAllList)().then(function (res) {_this2.list = res.data;console.log(_this2.list);}).catch(function (err) {console.log(err);});}, pushLogin: function pushLogin() {if (this.isLogin === true) {} else {uni.navigateTo({ url: '../login/login' });}},
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { list: [], isLogin: false, searchValue: '', //搜索框内容
+      isSelectBoxShow: false, //筛选是否展开
+      selectList: [{ id: 1, name: '审核状态', list: [{ id: 1, title: '驳回', status: false }, { id: 2, title: '通过', status: true }] }, { id: 2, name: '加分模块', list: [{ id: 1, title: '思想政治' }, { id: 2, title: '技术技能' }, { id: 3, title: '身心健康' }, { id: 4, title: '创新创业' }, { id: 5, title: '人文艺术' }, { id: 6, title: '志愿服务' }] }], selectLeftId: 1, selectRightId: 1, selectValueshzt: '', //选择框右边选择的内容
+      selectValuejfmk: '' //选择框右边选择的内容
+    };}, onLoad: function onLoad() {this.getAllListFunc();}, onShow: function onShow() {this.checkisLogin();}, methods: { //筛选框右边盒子点击事件
+    selectRightshenhe: function selectRightshenhe(item) {this.selectRightId = item.id;this.selectValueshzt = item.status;this.isSelectBoxShow = false;
+      // getSelect(this.selectValueshzt, this.selectValuejfmk).then(res => {
+      // 	this.list = res
+      // 	console.log(res)
+      // })
+      console.log(this.selectValueshzt);
+    },
+    //筛选框左边盒子点击事件
+    selectItem: function selectItem(id) {
+      this.selectLeftId = id;
+      console.log(id);
+    },
+    //点击筛选按钮
+    selectClick: function selectClick() {
+      this.isSelectBoxShow = !this.isSelectBoxShow;
+      console.log(this.isSelectBoxShow);
+    },
+    //跳转到证书详情页
+    pushDetail: function pushDetail(id) {
+      console.log(id);
+      uni.navigateTo({
+        url: "./detail/detail?id=".concat(id) });
+
+    },
+    //监听搜索框失去焦点触发
+    searchBlur: function searchBlur(e) {
+      this.searchValue = e.detail.value;
+      this.getSearchFunc(this.searchValue);
+      console.log(this.searchValue);
+    },
+    // 检查是否登录状态
+    checkisLogin: function checkisLogin() {var _this = this;
+      uni.getStorage({
+        key: 'isLogin',
+        success: function success(res) {
+          _this.isLogin = true;
+          console.log(_this.isLogin);
+        },
+        fail: function fail(err) {
+          _this.isLogin = false;
+        } });
+
+    },
+    //搜索请求
+    getSearchFunc: function getSearchFunc(name) {var _this2 = this;
+      (0, _apiData.getSearch)(name).then(function (res) {
+        _this2.list = res.data;
+        console.log(res);
+        console.log(_this2.list);
+      });
+    },
+    getAllListFunc: function getAllListFunc() {var _this3 = this;
+      (0, _apiData.getAllList)().then(function (res) {
+        _this3.list = res.data;
+        console.log(_this3.list);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    pushLogin: function pushLogin() {
+      if (this.isLogin === true) {} else {
+        uni.navigateTo({
+          url: '../login/login' });
+
+      }
+    },
     // 退出登录按钮
-    outLogin: function outLogin() {var _this3 = this;
+    outLogin: function outLogin() {var _this4 = this;
       uni.removeStorage({
         key: 'isLogin',
         success: function success(res) {
-          _this3.checkisLogin();
+          _this4.checkisLogin();
           uni.showToast({
             title: '退出登录' });
 

@@ -1,0 +1,29 @@
+
+.fatherBox {
+	margin: 20rpx 30rpx 0 30rpx;
+}
+.flex-box {
+	height: 80rpx;
+	line-height: 80rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	border-bottom: 1rpx solid #EAEBF2;
+}
+.leftBox {
+	color: #0052A5;
+}
+.rightBox {
+	color: #000000;
+	font-size: 28rpx;
+}
+.reasonBox{
+	min-height: 280rpx;
+	padding: 20rpx;
+	background-color: #F6F6F9;
+	font-size: 28rpx;
+}
+

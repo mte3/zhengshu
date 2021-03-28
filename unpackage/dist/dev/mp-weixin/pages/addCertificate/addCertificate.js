@@ -190,7 +190,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -259,9 +279,35 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
       moduleIndex: 0, levIndex: 0, //级别id
       priIndex: 0, scoIndex: 0, //分值
       staIndex: 0, //状态 1通过/2驳回
-      list: [], moduleList: [], //模块列表
+      list: [], choice: [[], //choice模块列表
+      [{ id: 0, name: '请选择' }, { id: 1, name: '国家级' }, { id: 2, name: '省级' }, { id: 3, name: '市厅级' }, { id: 4, name: '校级' }, { id: 5, name: '学院级' }], //choice级别列表
+      ['请选择', '一等奖', '二等奖', '三等奖', '其他奖项', '第一名', '二，三名', '四至六名', '七至十名'], //choice奖项列表
+      ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], //choice分值列表
+      ['通过', '驳回'] //choice//状态列表
+      ],
+
+
       //级别列表
-      level: [{ id: 0, text: '请选择' }, { id: 1, text: '国家级' }, { id: 2, text: '省级' }, { id: 3, text: '市厅级' }, { id: 4, text: '校级' }, { id: 5, text: '学院级' }], //奖项列表
+      level: [{
+        id: 0,
+        text: '请选择' },
+      {
+        id: 1,
+        text: '国家级' },
+      {
+        id: 2,
+        text: '省级' },
+      {
+        id: 3,
+        text: '市厅级' },
+      {
+        id: 4,
+        text: '校级' },
+      {
+        id: 5,
+        text: '学院级' }],
+
+      //奖项列表
       prize: [
       '请选择',
       '一等奖',
@@ -281,6 +327,7 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
   },
   onLoad: function onLoad() {
     this.getModuleListFunc();
+
   },
   methods: {
     handelControll: function handelControll() {
@@ -319,6 +366,8 @@ var _default = { data: function data() {return { isDone: true, certificate: [{ t
     getModuleListFunc: function getModuleListFunc() {var _this2 = this;
       (0, _apiData.getModuleList)().then(function (res) {
         _this2.list = res.data;
+        _this2.choice[0] = res.data;
+        console.log(_this2.choice[0]);
       });
     },
 

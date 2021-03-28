@@ -5,7 +5,8 @@
         "pages/login/login",
         "pages/module/module",
         "pages/certificate/certificate",
-        "pages/addCertificate/addCertificate"
+        "pages/addCertificate/addCertificate",
+        "pages/index/detail/detail"
     ],
     "subPackages": [],
     "window": {
@@ -15,5 +16,5 @@
         "backgroundColor": "#F8F8F8"
     },
     "usingComponents": {},
-    "sitemapLocation": "sitemap74.json"
+    "sitemapLocation": "sitemap50.json"
 }
