@@ -25,12 +25,27 @@ export function getManagerSearch(name) {
 		}
 	})
 }
+//查询全部证书
+export function getAllZhengShu() {
+	return request({
+		url: 'tourist/listModule'
+	})
+}
 // 游客按条件查询证书
 export function getSearch(name) {
 	return request({
 		url: 'tourist/listCertificateByName',
 		data: {
 			name
+		}
+	})
+}
+//已登录，搜索证书列表
+export function getLoginZengShuList(status) {
+	return request({
+		url: 'admin/listCertificateByStatus',
+		data:{
+			status
 		}
 	})
 }
@@ -123,10 +138,10 @@ export function addCertificate(detail) {
 }
 
 //证书管理主页面
-export function glCertificate(status){
+export function glCertificate(status) {
 	return request({
-		url:'admin/listCertificateByStatus',
-		data:{
+		url: 'admin/listCertificateByStatus',
+		data: {
 			status
 		}
 	})

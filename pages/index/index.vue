@@ -16,7 +16,7 @@
 				</view>
 			</view>
 
-<!-- 证书列表 -->
+			<!-- 证书列表 -->
 			<view class="contentBox" v-if="!isSelectBoxShow">
 				<view class="itemBox" v-for="item in list" :key="item.id" @click="pushDetail(item.id)">
 					<text style="margin-left: 10rpx;">{{item.name}}</text>
@@ -26,17 +26,22 @@
 			<!-- 筛选证书 -->
 			<view v-if="isSelectBoxShow" class="isSelectBox">
 				<view class="leftSelctBox">
-					<view class="itemBox" v-for="(item,index)  in selectList" @click="selectItem(item.id)"
-						:class="{'isSelect':selectLeftId==index+1}">{{item.name}}</view>
+					<view class="itemBox" v-for="(item,index)  in selectList" @click="selectItem(item.id)" :class="{'isSelect':selectLeftId==index+1}">{{item.name}}</view>
 				</view>
 				<view class="rightSelectBox" v-if="selectLeftId==1">
 					<view v-for="item in selectList[0].list" class="rightItemBox" @click="selectRightshenhe(item)">
-						{{item.title}}
+						<view class="text">{{item.title}}</view>
+						<view class="tickBox">
+							<image src="../../static/image/tick.png" mode="widthFix" style="width: 100%;" v-if="selectValueshzt==item.status"></image>
+						</view>
 					</view>
 				</view>
 				<view class="rightSelectBox" v-if="selectLeftId==2">
-					<view v-for="item in selectList[1].list" class="rightItemBox" @click="selectRight(item)">
-						{{item.title}}
+					<view v-for="(item,index) in selectList[1].list" class="rightItemBox" @click="selectRight(item)">
+						<view class="text">{{item.name}}</view>
+						<view class="tickBox">
+							<image src="../../static/image/tick.png" mode="widthFix" style="width: 100%;" v-if="selectValuejfmk==index+1"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -65,7 +70,8 @@
 	import {
 		getAllList,
 		getSearch,
-		getSelect
+		getSelect,
+		getAllZhengShu
 	} from '../../network/apiData.js'
 	export default {
 		data() {
@@ -89,30 +95,13 @@
 				}, {
 					id: 2,
 					name: '加分模块',
-					list: [{
-						id: 1,
-						title: '思想政治'
-					}, {
-						id: 2,
-						title: '技术技能'
-					}, {
-						id: 3,
-						title: '身心健康'
-					}, {
-						id: 4,
-						title: '创新创业'
-					}, {
-						id: 5,
-						title: '人文艺术'
-					}, {
-						id: 6,
-						title: '志愿服务'
-					}, ]
+					list: []
 				}],
 				selectLeftId: 1,
 				selectRightId: 1,
 				selectValueshzt: null, //选择框右边选择的内容 status
 				selectValuejfmk: null, //选择框右边选择的内容 module id
+				selectValuejfmkName: null //选择框右边选择的名称(加分模块)
 			}
 		},
 		onLoad() {
@@ -122,7 +111,7 @@
 			this.checkisLogin();
 		},
 		methods: {
-			//筛选框右边盒子点击事件
+			//筛选框右边盒子点击事件 //审核status
 			selectRightshenhe(item) {
 				this.selectRightId = item.id;
 				this.selectValueshzt = item.status;
@@ -131,23 +120,39 @@
 			},
 			//筛选框左边盒子点击事件 标题
 			selectItem(id) {
-				this.selectLeftId = id
+				this.selectLeftId = id;
+				if (id == 2) {
+					getAllZhengShu().then(res => {
+						this.selectList[1].list = res.data
+						console.log(this.selectList.list)
+					})
+				}
 				console.log(id)
 			},
 			//筛选框右边盒子点击事件 //模块id
-			selectRight(i){
+			selectRight(i) {
 				this.selectValuejfmk = i.id
-				console.log(this.selectValuejfmk)
-				console.log(this.selectValueshzt)
+				this.selectValuejfmkName = i.name;
+				console.log('名称-----------' + this.selectValuejfmkName)
+				console.log('id-----------' + this.selectValuejfmk)
 			},
 			//点击筛选按钮 显示/隐藏筛选框
 			selectClick() {
-				this.isSelectBoxShow = !this.isSelectBoxShow;
-				if(this.isSelectBoxShow){
-					getSearch(this.selectValuejfmk,this.selectValueshzt).then(res => {
-						this.list = res.data
+
+				if (this.isSelectBoxShow) {
+					getSearch(this.selectValuejfmk, this.selectValueshzt).then(res => {
+						this.list = res.data;
+						if (res.data.length == 0) {
+							uni.showToast({
+								title: "暂无数据",
+								icon: "none"
+							})
+						}
+						this.isSelectBoxShow = false
 						console.log(this.list)
 					})
+				} else {
+					this.isSelectBoxShow = true
 				}
 				console.log(this.isSelectBoxShow)
 			},
@@ -219,7 +224,7 @@
 				})
 			},
 			// 跳转到管理证书页面
-			pushCertificate(){
+			pushCertificate() {
 				uni.navigateTo({
 					url: '../managementCertificate/managementCertificate'
 				})
@@ -252,13 +257,12 @@
 		background-color: #FFFFFF;
 
 		.leftBox {
-			width: 10%;
-			height: 56rpx;
+			width: 50rpx;
+			height: 50rpx;
 			text-align: center;
 
 			image {
-				width: 56rpx;
-
+				width: 100%;
 			}
 		}
 
@@ -281,17 +285,18 @@
 		}
 
 		.rightBox {
-			width: 10%;
+			width: 50rpx;
 			text-align: center;
-			height: 56rpx;
+			height: 50rpx;
 
 			image {
-				width: 56rpx;
+				width: 100%;
 			}
 		}
 	}
 
 	.contentBox {
+
 		margin-top: 100rpx;
 
 		.itemBox {
@@ -356,10 +361,20 @@
 			width: 60%;
 
 			.rightItemBox {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 				height: 87rpx;
-				line-height: 87rpx;
+
 				border-bottom: 1rpx solid #EAEBF2;
 				border-left: 1rpx solid #EAEBF2;
+
+
+				.tickBox {
+					width: 40rpx;
+					height: 40rpx;
+				}
 			}
 		}
 

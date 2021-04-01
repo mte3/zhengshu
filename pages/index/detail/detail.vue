@@ -9,7 +9,7 @@
 		</view>
 		<view class="flex-box">
 			<view class="leftBox">加分模块</view>
-			<view class="rightBox">{{obj.name}}</view>
+			<view class="rightBox">{{obj.module.name}}</view>
 		</view>
 		<view class="flex-box">
 			<view class="leftBox">级别</view>
@@ -17,7 +17,7 @@
 		</view>
 		<view class="flex-box">
 			<view class="leftBox">奖项</view>
-			<view class="rightBox">{{obj.name}}</view>
+			<view class="rightBox">{{obj.level.name}}</view>
 		</view>
 		<view class="flex-box">
 			<view class="leftBox">分值</view>
@@ -87,5 +87,6 @@
 		padding: 20rpx;
 		background-color: #F6F6F9;
 		font-size: 28rpx;
+		margin-bottom: 40rpx;
 	}
 </style>

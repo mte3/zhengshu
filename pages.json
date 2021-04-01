@@ -56,7 +56,7 @@
             "path" : "pages/index/detail/detail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "证书详情",
                 "enablePullDownRefresh": false
             }
             

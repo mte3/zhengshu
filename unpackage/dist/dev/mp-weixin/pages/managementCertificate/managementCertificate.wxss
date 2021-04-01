@@ -74,4 +74,27 @@
 .headBox .rightBox image.data-v-61296e70 {
   width: 56rpx;
 }
+.contentBox .contentItem.data-v-61296e70 {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10rpx 30rpx;
+}
+.contentBox .contentItem .img.data-v-61296e70 {
+  width: 100%;
+}
+.contentBox .contentItem .text.data-v-61296e70 {
+  margin: 10rpx 0;
+}
+.contentBox .contentItem .deleteBox.data-v-61296e70 {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50rpx;
+  background-color: black;
+  text-align: center;
+  line-height: 50rpx;
+  opacity: 0.4;
+}
 

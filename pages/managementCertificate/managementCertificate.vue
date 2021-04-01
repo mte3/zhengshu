@@ -16,6 +16,16 @@
 			<div @click="handelTab('T')" :class="[status?'Selected':'']" class="tabItem">通过</div>
 			<div @click="handelTab('F')" :class="[!status?'Selected':'']" class="tabItem">驳回</div>
 		</div>
+		<view class="contentBox">
+			<view class="contentItem" v-for="(item,index) in list" :key="index" @touchstart="touchStart" @touchend="touchEnd">
+				<view style="position: relative;">
+					<image :src="item.picture" mode="widthFix" class="img"/>
+					<view v-if="isDelete" class="deleteBox">删除</view>
+				</view>
+				<view class="text">{{item.name}}</view>
+
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -23,7 +33,8 @@
 	import {
 		glCertificate,
 		getManagerSearch,
-		getSelect
+		getSelect,
+		getLoginZengShuList
 	} from '../../network/apiData.js'
 	export default {
 		data() {
@@ -71,11 +82,53 @@
 				selectRightId: 1,
 				selectValueshzt: '', //选择框右边选择的内容
 				selectValuejfmk: '', //选择框右边选择的内容
+				list: [], //列表数组
+				startPosition: 0, //手指刚触碰的位置
+				endPosition: 0, //手指离开屏幕的位置
+				isDelete: false, //监听手势滑动
 			}
 		},
+		onLoad() {
+			//证书列表加载请求
+			getLoginZengShuList(true).then(res => {
+				this.list = res.data
+				console.log(this.list)
+			})
+		},
 		methods: {
+
+			//监听手指按下
+			touchStart(e) {
+				this.startPosition = e.changedTouches[0].clientX
+				// console.log(e)
+				console.log(this.startPosition)
+			},
+			//监听手指抬起
+			touchEnd(e) {
+				this.endPosition = e.changedTouches[0].clientX
+				if (this.startPosition - this.endPosition - 60 > 0) {
+					this.isDelete = true;
+					console.log(this.isDelete)
+				} else if (this.endPosition - this.startPosition - 60 > 0) {
+					this.isDelete = false;
+				}
+				console.log(this.endPosition)
+			},
 			handelTab(e) {
-				e === 'T' ? this.status = true :this.status = false
+				e === 'T' ? this.status = true : this.status = false
+				if (e == 'T') {
+					this.status = true;
+					getLoginZengShuList(true).then(res => {
+						this.list = res.data;
+						console.log(this.list)
+					})
+				} else {
+					this.status = false;
+					getLoginZengShuList(false).then(res => {
+						this.list = res.data
+						console.log(this.list)
+					})
+				}
 				console.log(this.status)
 			},
 			//跳转到登录界面 √
@@ -144,8 +197,8 @@
 			text-align: center;
 			font-size: 32rpx;
 		}
-		
-		.Selected{
+
+		.Selected {
 			color: #000000;
 			border-bottom: 8rpx solid #FCD001;
 		}
@@ -199,6 +252,36 @@
 
 			image {
 				width: 56rpx;
+			}
+		}
+	}
+
+	.contentBox {
+		.contentItem {
+			width: 100%;
+			box-sizing: border-box;
+			padding: 10rpx 30rpx;
+
+			.img {
+				width: 100%;
+			}
+
+			.text {
+				margin: 10rpx 0;
+			}
+
+			.deleteBox {
+				position: absolute;
+				z-index: 999;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				width: 50rpx;
+
+				background-color: black;
+				text-align: center;
+				line-height: 50rpx;
+				opacity: 0.4;
 			}
 		}
 	}
