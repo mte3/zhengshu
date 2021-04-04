@@ -162,7 +162,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25);function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+
+
 
 
 
@@ -217,50 +220,56 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25);function 
     []), _defineProperty(_ref, "startPosition",
     0), _defineProperty(_ref, "endPosition",
     0), _defineProperty(_ref, "isDelete",
-    false), _ref;
+    false), _defineProperty(_ref, "currentIndex",
+    null), _ref;
 
   },
-  onLoad: function onLoad() {var _this = this;
+  onLoad: function onLoad() {
     //证书列表加载请求
-    (0, _apiData.getLoginZengShuList)(true).then(function (res) {
-      _this.list = res.data;
-      console.log(_this.list);
-    });
+    this.getZhengshu();
   },
   methods: {
-
+    //证书列表加载请求
+    getZhengshu: function getZhengshu() {var _this = this;
+      (0, _apiData.getLoginZengShuList)(this.status).then(function (res) {
+        _this.list = res.data;
+        console.log(_this.list);
+      });
+    },
     //监听手指按下
-    touchStart: function touchStart(e) {
-      this.startPosition = e.changedTouches[0].clientX;
-      // console.log(e)
-      console.log(this.startPosition);
+    touchStart: function touchStart($event, index) {
+      console.log($event, index);
+      this.startPosition = $event.changedTouches[0].clientX;
+      this.currentIndex = index;
     },
     //监听手指抬起
     touchEnd: function touchEnd(e) {
       this.endPosition = e.changedTouches[0].clientX;
       if (this.startPosition - this.endPosition - 60 > 0) {
         this.isDelete = true;
-        console.log(this.isDelete);
       } else if (this.endPosition - this.startPosition - 60 > 0) {
         this.isDelete = false;
       }
-      console.log(this.endPosition);
     },
-    handelTab: function handelTab(e) {var _this2 = this;
+    // 删除证书
+    deleteById: function deleteById(id) {var _this2 = this;
+      var a = id.toString();
+      console.log(a);
+      (0, _apiData.delCertificate)(a).then(function (res) {
+        console.log(res);
+        _this2.getZhengshu();
+      });
+      this.isDelete = false;
+    },
+    // 点击tab
+    handelTab: function handelTab(e) {
       e === 'T' ? this.status = true : this.status = false;
       if (e == 'T') {
         this.status = true;
-        (0, _apiData.getLoginZengShuList)(true).then(function (res) {
-          _this2.list = res.data;
-          console.log(_this2.list);
-        });
       } else {
         this.status = false;
-        (0, _apiData.getLoginZengShuList)(false).then(function (res) {
-          _this2.list = res.data;
-          console.log(_this2.list);
-        });
       }
+      this.getZhengshu();
       console.log(this.status);
     },
     //跳转到登录界面 √
@@ -270,6 +279,16 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25);function 
           url: '../login/login' });
 
       }
+    },
+    // 跳转到证书详情页
+    handelItem: function handelItem(id) {
+      console.log(id);
+      (0, _apiData.getAdminCertificateDetail)(id).then(function (res) {
+        console.log(res.data);
+      });
+      uni.navigateTo({
+        url: "./detail/detail?id=".concat(id) });
+
     },
     //筛选框右边盒子点击事件
     selectRightshenhe: function selectRightshenhe(item) {

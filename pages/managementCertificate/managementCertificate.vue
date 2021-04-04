@@ -17,10 +17,11 @@
 			<div @click="handelTab('F')" :class="[!status?'Selected':'']" class="tabItem">驳回</div>
 		</div>
 		<view class="contentBox">
-			<view class="contentItem" v-for="(item,index) in list" :key="index" @touchstart="touchStart" @touchend="touchEnd">
+			<view class="contentItem" v-for="(item,index) in list" @click="handelItem(item.id)" :key="index" @touchstart="touchStart($event,index)"
+			 @touchend="touchEnd">
 				<view style="position: relative;">
-					<image :src="item.picture" mode="widthFix" class="img"/>
-					<view v-if="isDelete" class="deleteBox">删除</view>
+					<image :src="item.picture" mode="widthFix" class="img" />
+					<view v-if="isDelete&&currentIndex===index" @click="deleteById(item.id)" class="deleteBox">删除</view>
 				</view>
 				<view class="text">{{item.name}}</view>
 
@@ -34,7 +35,9 @@
 		glCertificate,
 		getManagerSearch,
 		getSelect,
-		getLoginZengShuList
+		getLoginZengShuList,
+		delCertificate,
+		getAdminCertificateDetail
 	} from '../../network/apiData.js'
 	export default {
 		data() {
@@ -86,49 +89,55 @@
 				startPosition: 0, //手指刚触碰的位置
 				endPosition: 0, //手指离开屏幕的位置
 				isDelete: false, //监听手势滑动
+				currentIndex: null, //显示删除的index
 			}
 		},
 		onLoad() {
 			//证书列表加载请求
-			getLoginZengShuList(true).then(res => {
-				this.list = res.data
-				console.log(this.list)
-			})
+			this.getZhengshu()
 		},
 		methods: {
-
+			//证书列表加载请求
+			getZhengshu(){
+				getLoginZengShuList(this.status).then(res => {
+					this.list = res.data
+					console.log(this.list)
+				})
+			},
 			//监听手指按下
-			touchStart(e) {
-				this.startPosition = e.changedTouches[0].clientX
-				// console.log(e)
-				console.log(this.startPosition)
+			touchStart($event, index) {
+				console.log($event, index)
+				this.startPosition = $event.changedTouches[0].clientX
+				this.currentIndex = index
 			},
 			//监听手指抬起
 			touchEnd(e) {
 				this.endPosition = e.changedTouches[0].clientX
 				if (this.startPosition - this.endPosition - 60 > 0) {
 					this.isDelete = true;
-					console.log(this.isDelete)
 				} else if (this.endPosition - this.startPosition - 60 > 0) {
 					this.isDelete = false;
 				}
-				console.log(this.endPosition)
 			},
+			// 删除证书
+			deleteById(id) {
+				let a = id.toString()
+				console.log(a)
+				delCertificate(a).then(res => {
+					console.log(res)
+					this.getZhengshu()
+				})
+				this.isDelete = false;
+			},
+			// 点击tab
 			handelTab(e) {
 				e === 'T' ? this.status = true : this.status = false
 				if (e == 'T') {
 					this.status = true;
-					getLoginZengShuList(true).then(res => {
-						this.list = res.data;
-						console.log(this.list)
-					})
 				} else {
 					this.status = false;
-					getLoginZengShuList(false).then(res => {
-						this.list = res.data
-						console.log(this.list)
-					})
 				}
+				this.getZhengshu()
 				console.log(this.status)
 			},
 			//跳转到登录界面 √
@@ -138,6 +147,16 @@
 						url: '../login/login'
 					})
 				}
+			},
+			// 跳转到证书详情页
+			handelItem(id) {
+				console.log(id)
+				getAdminCertificateDetail(id).then(res =>{
+					console.log(res.data)
+				})
+				uni.navigateTo({
+					url: `./detail/detail?id=${id}`
+				})
 			},
 			//筛选框右边盒子点击事件
 			selectRightshenhe(item) {
@@ -183,6 +202,9 @@
 <style scoped lang="less">
 	.tabCtrl {
 		display: flex;
+		top:88rpx;
+		left: 0;
+		right: 0;
 		justify-content: space-around;
 		width: 100%;
 		margin-top: 88rpx;
@@ -276,7 +298,7 @@
 				top: 0;
 				right: 0;
 				bottom: 0;
-				width: 50rpx;
+				width: 100rpx;
 
 				background-color: black;
 				text-align: center;

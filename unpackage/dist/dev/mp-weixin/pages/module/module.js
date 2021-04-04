@@ -196,7 +196,7 @@ var _apiData = __webpack_require__(/*! ../../network/apiData.js */ 25); //
 var _default = { data: function data() {return { isDone: true, list: [], // newName:'',
       name: '', cIndex: null };}, onLoad: function onLoad() {this.getModuleListFunc();}, methods: { modifyModule: function modifyModule(id) {// this.newName = this.list[i].name
       // console.log(this.newName)
-      this.cIndex = id;}, sureModifyModule: function sureModifyModule(i, id) {var _this = this;console.log(this.list[i].name);(0, _apiData.modifyModule)(id, this.list[i].name).then(function (res) {_this.cIndex = null;console.log(res);});}, delModule: function delModule(id) {var _this2 = this;var a = id.toString();console.log(id);
+      this.cIndex = id;}, sureModifyModule: function sureModifyModule(i, id) {var _this = this;console.log(this.list[i].name);(0, _apiData.modifyModule)(id, this.list[i].name).then(function (res) {_this.cIndex = null;console.log(res);});}, delModule: function delModule(id) {var _this2 = this;var a = id.toString();console.log(a);
       (0, _apiData.deleteModule)(a).then(function (res) {
         console.log(res);
         _this2.getModuleListFunc();

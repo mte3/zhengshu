@@ -2,6 +2,9 @@
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  top: 88rpx;
+  left: 0;
+  right: 0;
   -webkit-justify-content: space-around;
           justify-content: space-around;
   width: 100%;
@@ -91,7 +94,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 50rpx;
+  width: 100rpx;
   background-color: black;
   text-align: center;
   line-height: 50rpx;

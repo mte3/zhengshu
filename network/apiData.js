@@ -44,7 +44,7 @@ export function getSearch(name) {
 export function getLoginZengShuList(status) {
 	return request({
 		url: 'admin/listCertificateByStatus',
-		data:{
+		data: {
 			status
 		}
 	})
@@ -144,5 +144,25 @@ export function glCertificate(status) {
 		data: {
 			status
 		}
+	})
+}
+
+//删除证书
+export function delCertificate(id) {
+	return request({
+		url: 'admin/delCertificateById/' + id,
+		method: 'DELETE',
+		header: {
+			'content-type': 'application/x-www-form-urlencoded',
+		},
+		data: {
+			id
+		}
+	})
+}
+
+export function getAdminCertificateDetail(id) {
+	return request({
+		url: 'admin/getCertificateById/' + id,
 	})
 }

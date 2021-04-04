@@ -64,7 +64,7 @@
 			},
 			delModule(id) {
 				let a = id.toString()
-				console.log(id)
+				console.log(a)
 				deleteModule(a).then(res => {
 					console.log(res)
 					this.getModuleListFunc();

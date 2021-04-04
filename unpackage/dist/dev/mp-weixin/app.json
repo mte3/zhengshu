@@ -1,21 +1,21 @@
 {
-    "pages": [
-        "pages/enter/enter",
-        "pages/index/index",
-        "pages/login/login",
-        "pages/module/module",
-        "pages/certificate/certificate",
-        "pages/addCertificate/addCertificate",
-        "pages/index/detail/detail",
-        "pages/managementCertificate/managementCertificate"
-    ],
-    "subPackages": [],
-    "window": {
-        "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "uni-app",
-        "navigationBarBackgroundColor": "#F8F8F8",
-        "backgroundColor": "#F8F8F8"
-    },
-    "usingComponents": {},
-    "sitemapLocation": "sitemap62.json"
+  "pages": [
+    "pages/enter/enter",
+    "pages/index/index",
+    "pages/login/login",
+    "pages/module/module",
+    "pages/certificate/certificate",
+    "pages/addCertificate/addCertificate",
+    "pages/index/detail/detail",
+    "pages/managementCertificate/managementCertificate",
+    "pages/managementCertificate/detail/detail"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
 }

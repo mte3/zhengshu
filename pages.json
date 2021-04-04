@@ -70,6 +70,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/managementCertificate/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
