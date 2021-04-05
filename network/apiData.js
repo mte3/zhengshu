@@ -166,3 +166,15 @@ export function getAdminCertificateDetail(id) {
 		url: 'admin/getCertificateById/' + id,
 	})
 }
+
+//修改证书
+export function updCertificate(data) {
+	return request({
+		header: {
+			'content-type': 'application/x-www-form-urlencoded',
+		},
+		url: 'admin/updCertificateById/' + data.id,
+		method: 'PUT',
+		data
+	})
+}

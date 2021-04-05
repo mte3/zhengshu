@@ -130,7 +130,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
 
 
 
@@ -201,13 +204,144 @@ var _apiData = __webpack_require__(/*! ../../../network/apiData.js */ 25); //
 //
 //
 //
-var _default = { data: function data() {return { id: null, certificate: {}, isDone: true, showList: [['名称', '模块', '级别', '奖项', '分值', '状态']], reason: '' // showList:[],
-    };}, onLoad: function onLoad(options) {this.id = options.id;this.getCertificateDetail(this.id);console.log(this.id);}, methods: { getCertificateDetail: function getCertificateDetail(id) {var _this = this;(0, _apiData.getAdminCertificateDetail)(id).then(function (res) {_this.certificate = res.data;_this.reason = _this.certificate.reason, //
-        _this.showList.push([_this.certificate.name, //
-        _this.certificate.module.name, //
-        _this.certificate.level.name, //
-        _this.certificate.awards, _this.certificate.fraction, _this.certificate.status //
-        ]);});} } };exports.default = _default;
+//
+//
+//
+var _default = { data: function data() {return { parameter: {}, id: null, certificate: {}, isDone: true, showList: [['名称', '模块', '级别', '奖项', '分值', '状态']], reason: '', choiceIndex: null, choice: [[], //choice模块列表
+      [{ id: 0, name: '请选择' }, { id: 1, name: '国家级' }, { id: 2, name: '省级' }, { id: 3, name: '市厅级' }, { id: 4, name: '校级' }, { id: 5, name: '学院级' }], //choice级别列表
+      ['请选择', '一等奖', '二等奖', '三等奖',
+      '其他奖项',
+      '第一名',
+      '二，三名',
+      '四至六名',
+      '七至十名'],
+      //choice奖项列表
+      ['请选择', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], //choice分值列表
+      ['通过', '驳回'] //choice//状态列表	
+      ] //选择列表
+    };
+  },
+  onLoad: function onLoad(options) {
+    this.getModuleListFunc();
+    //获取证书详细
+    this.id = options.id;
+    this.getCertificateDetail(this.id);
+    console.log(this.id);
+
+  },
+  methods: {
+    //点击选择图片
+    Picture: function Picture() {var _this = this;
+      uni.chooseImage({
+        count: 1,
+        success: function success(res) {
+          _this.parameter.picture = res.tempFilePaths[0];
+        } });
+
+    },
+    //获取模块列表
+    getModuleListFunc: function getModuleListFunc() {var _this2 = this;
+      (0, _apiData.getModuleList)().then(function (res) {
+        _this2.list = res.data;
+        _this2.choice[0] = res.data;
+      });
+    },
+    getIndex: function getIndex(list, id) {
+      return list.findIndex(function (e) {
+        return e.id == id;
+      });
+    },
+    //获取证书信息
+    getCertificateDetail: function getCertificateDetail(id) {var _this3 = this;
+      (0, _apiData.getAdminCertificateDetail)(id).then(function (res) {
+        _this3.certificate = res.data;
+        _this3.reason = _this3.certificate.reason; //
+        _this3.certificate.fraction > 15 ? _this3.certificate.fraction = 15 : '';
+        //初始化参数
+        _this3.parameter.awards = _this3.certificate.awards;
+        _this3.parameter.file = _this3.certificate.picture;
+        _this3.parameter.fraction = _this3.certificate.fraction;
+        _this3.parameter.id = _this3.id;
+        _this3.parameter.levelId = _this3.certificate.level.id;
+        _this3.parameter.moduleId = _this3.certificate.module.id;
+        _this3.parameter.name = _this3.certificate.name;
+        _this3.parameter.picture = _this3.certificate.picture;
+        _this3.parameter.reason = _this3.certificate.reason;
+        _this3.parameter.status = _this3.certificate.status;
+        _this3.parameter.updatePicture = true;
+
+        var moduleIndex = _this3.getIndex(_this3.choice[0], _this3.parameter.moduleId);
+        var levelIndex = _this3.getIndex(_this3.choice[1], _this3.parameter.levelId);
+        //默认显示的数据
+        _this3.showList.push([
+        _this3.parameter.name, //
+        _this3.choice[0][moduleIndex].name, //
+        _this3.choice[1][levelIndex].name, //
+        _this3.parameter.awards,
+        _this3.parameter.fraction,
+        _this3.parameter.status //
+        ]);
+        // 奖项的index
+        var awardsIndex = _this3.choice[2].findIndex(function (e) {
+          return e === _this3.certificate.awards;
+        });
+        // 状态
+        var statusIndex;
+        _this3.certificate.status ? statusIndex = 0 : statusIndex = 1;
+
+        // 选择的index
+        _this3.choiceIndex = [moduleIndex, levelIndex, awardsIndex, _this3.certificate.fraction, statusIndex];
+        console.log(_this3.choiceIndex);
+      });
+    },
+    //点击完成/编辑按钮
+    handelControll: function handelControll() {
+      this.showList[1][0] = this.parameter.name;
+      if (!this.isDone) {
+        (0, _apiData.updCertificate)(this.parameter).then(function (res) {
+          console.log(res);
+        });
+      }
+      this.isDone = !this.isDone;
+      console.log(this.parameter);
+    },
+    //选择器
+    bindPickerChange: function bindPickerChange(i, e) {
+      console.log(i);
+      console.log('picker发送选择改变，携带值为', e.detail.value);
+      this.choiceIndex[i - 1] = e.detail.value * 1;
+      if (i == 1) {
+        //模块参数
+        this.parameter.moduleId = this.choice[i - 1][this.choiceIndex[i - 1]].id;
+        this.showList[1][i] = this.choice[i - 1][this.choiceIndex[i - 1]].name;
+
+      } else if (i == 2) {
+        //级别参数
+        this.parameter.levelId = this.choice[i - 1][this.choiceIndex[i - 1]].id;
+        this.showList[1][i] = this.choice[i - 1][this.choiceIndex[i - 1]].name;
+        // this.lev = this.level[this.levIndex].id
+      } else if (i == 3) {
+        //奖项参数
+        this.parameter.awards = this.choice[i - 1][this.choiceIndex[i - 1]];
+        this.showList[1][i] = this.choice[i - 1][this.choiceIndex[i - 1]];
+      } else if (i == 4) {
+        //分数参数
+        this.parameter.fraction = e.detail.value;
+        this.showList[1][i] = this.choice[i - 1][this.choiceIndex[i - 1]];
+      } else if (i == 5) {
+        //状态参数
+        if (e.detail.value == 1) {
+          this.parameter.status = false;
+          this.showList[1][i] = false;
+
+        } else {
+          this.parameter.status = true;
+          this.showList[1][i] = true;
+        }
+      }
+      console.log(this.choiceIndex);
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

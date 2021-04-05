@@ -1,17 +1,19 @@
 .tabCtrl.data-v-61296e70 {
+  z-index: 99;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  position: fixed;
   top: 88rpx;
   left: 0;
   right: 0;
   -webkit-justify-content: space-around;
           justify-content: space-around;
   width: 100%;
-  margin-top: 88rpx;
   height: 88rpx;
   line-height: 88rpx;
   color: #999999;
+  background-color: #fff;
   padding: 18rpx;
 }
 .tabCtrl ._div.data-v-61296e70 {
@@ -25,6 +27,7 @@
   border-bottom: 8rpx solid #FCD001;
 }
 .headBox.data-v-61296e70 {
+  z-index: 99;
   position: fixed;
   top: 0;
   left: 0;
@@ -76,6 +79,9 @@
 }
 .headBox .rightBox image.data-v-61296e70 {
   width: 56rpx;
+}
+.contentBox.data-v-61296e70 {
+  margin-top: 182rpx;
 }
 .contentBox .contentItem.data-v-61296e70 {
   width: 100%;

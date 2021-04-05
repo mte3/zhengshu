@@ -31,6 +31,10 @@ image {
   margin: 16rpx 24rpx;
   border-bottom: 2rpx solid #EAEBF2;
 }
+input {
+  height: 72rpx;
+  line-height: 72rpx;
+}
 .title {
   color: #007AFF;
   font-size: 32rpx;

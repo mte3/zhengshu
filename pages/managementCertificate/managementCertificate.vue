@@ -201,16 +201,18 @@
 
 <style scoped lang="less">
 	.tabCtrl {
+		z-index: 99;
 		display: flex;
+		position: fixed;
 		top:88rpx;
 		left: 0;
 		right: 0;
 		justify-content: space-around;
 		width: 100%;
-		margin-top: 88rpx;
 		height: 88rpx;
 		line-height: 88rpx;
 		color: #999999;
+		background-color: #fff;
 		padding: 18rpx;
 
 		div {
@@ -227,6 +229,7 @@
 	}
 
 	.headBox {
+		z-index: 99;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -279,6 +282,7 @@
 	}
 
 	.contentBox {
+		margin-top: 182rpx;
 		.contentItem {
 			width: 100%;
 			box-sizing: border-box;
